@@ -1,0 +1,27 @@
+.services {
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .services h1 {
+    color: #002a6e;
+    font-size: 2.5em;
+  }
+  
+  .service-section {
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-section h2 {
+    color: #002a6e;
+  }
+  
+  .service-section p {
+    font-size: 1.2em;
+    color: #555;
+  }
+  
