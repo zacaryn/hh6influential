@@ -12,7 +12,6 @@ body {
   header {
     background: #002a6e;
     color: white;
-    padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,5 +34,36 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
+  }
+  
+  .page-container {
+    max-width: 900px;
+    margin: 80px auto; /* Adjusted for fixed navbar */
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  main {
+    margin-top: 120px; /* Adjusted for fixed header */
+    text-align: center;
+    padding: 50px 20px;
+  }
+  
+  .content-section {
+    max-width: 800px; /* Defines maximum width */
+    margin: 20px auto; /* Centers the content and adds margin */
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+  
+  .content-section h1 {
+    text-align: center;
+    font-size: 2.5em;
   }
   

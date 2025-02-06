@@ -1,17 +1,83 @@
-.home {
-    padding: 80px 20px;
-    text-align: center;
+/* General Container for Pages */
+.page-container {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 100px auto; /* Adjusted for fixed navbar */
+    background: #f9f9f9; /* Light background for clarity */
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .home h1 {
-    color: #002a6e;
-    font-size: 2.5em;
+  /* Section Styling */
+  .section {
+    padding: 40px 20px;
+    margin-bottom: 30px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #ddd;
+    border-radius: 10px;
   }
   
-  .home p {
-    font-size: 1.2em;
-    max-width: 600px;
-    margin: 0 auto;
+  .section h1,
+  .section h2 {
+    color: #002a6e; /* Navy blue titles */
+    margin-bottom: 15px;
+  }
+  
+  .section p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  /* List Items */
+  .section ul {
+    padding-left: 20px;
+  }
+  
+  .section ul li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  /* Call-to-Action Buttons */
+  .cta-button {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    color: white;
+    background-color: #002a6e;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .cta-button:hover {
+    background-color: #0044a6; /* Slightly lighter navy on hover */
+  }
+  
+  /* Image/Media Section Styling */
+  .section-image {
+    max-width: 100%;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .section ul {
+    padding-left: 120px; /* Adds spacing from the left */
+    text-align: left; /* Aligns the list to the left */
+  }
+  
+  .section ul li {
+    margin-bottom: 10px;
+    font-size: 1rem;
     color: #333;
   }
   
