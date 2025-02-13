@@ -1,71 +1,107 @@
 // src/components/Portfolio.jsx
-import React, { useEffect } from "react";
-import "./../styles/Portfolio.css"; // Page-specific styles
+import React, { useState, useEffect } from "react";
+import "./../styles/Portfolio.css";
 
 function Portfolio() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const portfolioItems = [
+    {
+      title: "Georgia National Guard Family Support Foundation",
+      category: "Web Development",
+      description: "Developed a comprehensive SQL database system with custom admin panel for managing the foundation's events and operations.",
+      image: "/assets/images/ggflogo.png",
+      link: "https://georgiaguardfamily.org/"
+    },
+    {
+      title: "Veteran Support Programs",
+      category: "Social Media & Design",
+      description: "Created engaging social media campaigns and promotional materials to raise awareness for veteran support initiatives.",
+      images: [
+        "/assets/images/flyer1.png",
+        "/assets/images/flyer2.png",
+        "/assets/images/flyer3.png",
+        "/assets/images/flyer4.png",
+        "/assets/images/flyer5.png"
+      ],
+      link: "#"
+    },
+    {
+      title: "Social Media Management",
+      category: "Digital Marketing",
+      description: "Comprehensive social media strategy and content management across Facebook, Instagram, and other platforms, boosting engagement and reach for brands and organizations.",
+      image: "/assets/images/media1.png",
+      link: "#"
+    }
+  ];
+
   useEffect(() => {
-    // Initialize slideshow functionality from script.js
+    const timer = setInterval(() => {
+      if (portfolioItems[1].images) {
+        setCurrentSlide((prev) => (prev + 1) % portfolioItems[1].images.length);
+      }
+    }, 3000);
+    return () => clearInterval(timer);
   }, []);
 
   return (
-    <main className="portfolio">
-      <h1>Our Work</h1>
-
-      <section className="portfolio-section">
-        <h2>
-          <a href="https://georgiaguardfamily.org/" target="_blank" rel="noopener noreferrer">
-            Georgia National Guard Family Support Foundation
-          </a>
-        </h2>
-        <p>
-          We developed an SQL database for managing the foundation's events and created a custom admin panel for management.
+    <div className="page-container">
+      <section className="portfolio-hero">
+        <h1>Our Portfolio</h1>
+        <p className="lead">
+          Explore our work and see how we've helped organizations transform their digital presence.
         </p>
       </section>
 
-      <section className="portfolio-section">
-        <h2>Graphics & Flyers</h2>
-        <p>
-          Engaging social media flyers designed to raise awareness for veteran support programs. Optimized for maximum impact.
-        </p>
+      <section className="portfolio-grid">
+        {portfolioItems.map((item, index) => (
+          <div key={index} className="portfolio-card">
+            <div className="portfolio-image">
+              {item.images ? (
+                // Slideshow for multiple images
+                <>
+                  <img 
+                    src={item.images[currentSlide]} 
+                    alt={`${item.title} - Slide ${currentSlide + 1}`} 
+                  />
+                  <div className="slideshow-controls">
+                    <span className="slide-counter">
+                      {currentSlide + 1} / {item.images.length}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                // Single image
+                <img src={item.image} alt={item.title} />
+              )}
+              <div className="portfolio-overlay">
+                <a 
+                  href={item.link} 
+                  className="view-project"
+                  target={item.link !== "#" ? "_blank" : undefined}
+                  rel={item.link !== "#" ? "noopener noreferrer" : undefined}
+                >
+                  View Project
+                </a>
+              </div>
+            </div>
+            <div className="portfolio-content">
+              <span className="category">{item.category}</span>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </section>
 
-        {/* Slideshow container */}
-        <div className="slideshow-container">
-          <div className="slide fade">
-            <img src="/assets/images/flyer1.png" alt="Flyer 1" />
-          </div>
-          <div className="slide fade">
-            <img src="/assets/images/flyer2.png" alt="Flyer 2" />
-          </div>
-          <div className="slide fade">
-            <img src="/assets/images/flyer3.png" alt="Flyer 3" />
-          </div>
-          <div className="slide fade">
-            <img src="/assets/images/flyer4.png" alt="Flyer 4" />
-          </div>
-          <div className="slide fade">
-            <img src="/assets/images/flyer5.png" alt="Flyer 5" />
-          </div>
-          <div className="slide fade">
-            <img src="/assets/images/ggflogo.png" alt="Flyer 6" />
-          </div>
-
-          {/* Navigation buttons */}
-          <a className="prev" onClick={() => window.plusSlides(-1)}>
-            &#10094;
-          </a>
-          <a className="next" onClick={() => window.plusSlides(1)}>
-            &#10095;
-          </a>
+      <section className="portfolio-cta">
+        <div className="cta-content">
+          <h2>Ready to Start Your Project?</h2>
+          <p>Let's work together to create something amazing for your organization.</p>
+          <a href="/contact" className="cta-button">Get in Touch</a>
         </div>
       </section>
-
-      <section className="portfolio-section">
-        <h2>Social Media Management</h2>
-        <p>
-          We manage Facebook, Instagram, and other platforms, boosting engagement and reach for brands and organizations.
-        </p>
-      </section>
-    </main>
+    </div>
   );
 }
 

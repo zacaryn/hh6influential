@@ -1,35 +1,218 @@
-.about {
-    padding: 80px 20px;
-    text-align: center;
-    max-width: 900px;
-    margin: 80px auto; /* Adjusted for fixed navbar */
+/* General Container for Pages */
+.page-container {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 100px auto; /* Adjusted for fixed navbar */
+  background: #f9f9f9; /* Light background for clarity */
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Styling */
+.section {
+  padding: 40px 20px;
+  margin-bottom: 30px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.section h1,
+.section h2 {
+  color: #002a6e; /* Navy blue titles */
+  margin-bottom: 15px;
+}
+
+.section p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* List Items */
+.section ul {
+  padding-left: 20px;
+}
+
+.section ul li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Call-to-Action Buttons */
+.cta-button {
+  display: inline-block;
+  margin: 20px 0;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  color: white;
+  background-color: #002a6e;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cta-button:hover {
+  background-color: #0044a6; /* Slightly lighter navy on hover */
+}
+
+/* Image/Media Section Styling */
+.section-image {
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover; /* Ensure the images maintain their aspect ratio */
+}
+
+.image-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Adjust the gap between images as needed */
+}
+
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%; /* Set a maximum height for the images */
+  object-fit: cover; /* Ensure the images maintain their aspect ratio */
+}
+
+.section ul {
+  padding-left: 120px; /* Adds spacing from the left */
+  text-align: left; /* Aligns the list to the left */
+}
+
+.section ul li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.about-hero {
+  text-align: center;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
+  color: white;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+.about-hero h1 {
+  color: white;
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.about-hero .lead {
+  color: white;
+  font-size: 1.25rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.team-section {
+  padding: 40px;
+  background: white;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+.team-section h2 {
+  color: #002a6e;
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.team-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.team-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.team-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.team-content h3 {
+  color: #002a6e;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.team-content h4 {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.team-content p {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 40px 20px;
+  }
+
+  .about-hero h1 {
+    font-size: 2rem;
+  }
+
+  .team-section {
+    padding: 30px 20px;
+  }
+
+  .team-card {
     padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
-  .about h1 {
-    color: #002a6e;
-    font-size: 2.5em;
+
+  .team-image {
+    height: 180px;
   }
-  
-  .about p {
-    font-size: 1.2em;
-    max-width: 600px;
-    margin: 0 auto;
-    color: #333;
-  }
-  
-  .image-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .image-container img {
-    max-width: 45%;
-    border-radius: 5px;
-  }
-  
+}
