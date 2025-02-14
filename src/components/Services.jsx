@@ -1,6 +1,7 @@
 // src/components/Services.jsx
 import React from "react";
-import "./../styles/Services.css"; // Page-specific styles
+import "./../styles/Services.css";
+import PageHead from './common/PageHead';
 
 function Services() {
   const servicesList = [
@@ -37,30 +38,33 @@ function Services() {
   ];
 
   return (
-    <div className="page-container">
-      <section className="services-hero">
-        <h1>Our Services</h1>
-        <p className="lead">
-          Comprehensive digital solutions tailored to your needs
-        </p>
-      </section>
+    <>
+      <PageHead title="Services" />
+      <div className="page-container">
+        <section className="services-hero">
+          <h1>Our Services</h1>
+          <p className="lead">
+            Comprehensive digital solutions tailored to your needs
+          </p>
+        </section>
 
-      <div className="services-grid">
-        {servicesList.map((service, index) => (
-          <section key={index} className="service-card">
-            <div className="service-content">
-              <h2>{service.title}</h2>
-              <p>{service.description}</p>
-              <ul className="features-list">
-                {service.features.map((feature, i) => (
-                  <li key={i}>{feature}</li>
-                ))}
-              </ul>
-            </div>
-          </section>
-        ))}
+        <div className="services-grid">
+          {servicesList.map((service, index) => (
+            <section key={index} className="service-card">
+              <div className="service-content">
+                <h2>{service.title}</h2>
+                <p>{service.description}</p>
+                <ul className="features-list">
+                  {service.features.map((feature, i) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 // src/components/Portfolio.jsx
 import React, { useState, useEffect } from "react";
 import "./../styles/Portfolio.css";
+import PageHead from './common/PageHead';
 
 function Portfolio() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -45,63 +46,64 @@ function Portfolio() {
   }, []);
 
   return (
-    <div className="page-container">
-      <section className="portfolio-hero">
-        <h1>Our Portfolio</h1>
-        <p className="lead">
-          Explore our work and see how we've helped organizations transform their digital presence.
-        </p>
-      </section>
+    <>
+      <PageHead title="Portfolio" />
+      <div className="page-container">
+        <section className="portfolio-hero">
+          <h1>Our Portfolio</h1>
+          <p className="lead">
+            Explore our work and see how we've helped organizations transform their digital presence.
+          </p>
+        </section>
 
-      <section className="portfolio-grid">
-        {portfolioItems.map((item, index) => (
-          <div key={index} className="portfolio-card">
-            <div className="portfolio-image">
-              {item.images ? (
-                // Slideshow for multiple images
-                <>
-                  <img 
-                    src={item.images[currentSlide]} 
-                    alt={`${item.title} - Slide ${currentSlide + 1}`} 
-                  />
-                  <div className="slideshow-controls">
-                    <span className="slide-counter">
-                      {currentSlide + 1} / {item.images.length}
-                    </span>
-                  </div>
-                </>
-              ) : (
-                // Single image
-                <img src={item.image} alt={item.title} />
-              )}
-              <div className="portfolio-overlay">
-                <a 
-                  href={item.link} 
-                  className="view-project"
-                  target={item.link !== "#" ? "_blank" : undefined}
-                  rel={item.link !== "#" ? "noopener noreferrer" : undefined}
-                >
-                  View Project
-                </a>
+        <section className="portfolio-grid">
+          {portfolioItems.map((item, index) => (
+            <div key={index} className="portfolio-card">
+              <div className="portfolio-image">
+                {item.images ? (
+                  <>
+                    <img 
+                      src={item.images[currentSlide]} 
+                      alt={`${item.title} - Slide ${currentSlide + 1}`}
+                    />
+                    <div className="slideshow-controls">
+                      <span className="slide-counter">
+                        {currentSlide + 1} / {item.images.length}
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <img src={item.image} alt={item.title} />
+                )}
+                <div className="portfolio-overlay">
+                  <a 
+                    href={item.link} 
+                    className="view-project"
+                    target={item.link !== "#" ? "_blank" : undefined}
+                    rel={item.link !== "#" ? "noopener noreferrer" : undefined}
+                  >
+                    View Project
+                  </a>
+                </div>
+              </div>
+              <div className="portfolio-content">
+                <span className="category">{item.category}</span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
               </div>
             </div>
-            <div className="portfolio-content">
-              <span className="category">{item.category}</span>
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-            </div>
-          </div>
-        ))}
-      </section>
+          ))}
+        </section>
 
-      <section className="portfolio-cta">
-        <div className="cta-content">
-          <h2>Ready to Start Your Project?</h2>
-          <p>Let's work together to create something amazing for your organization.</p>
-          <a href="/contact" className="cta-button">Get in Touch</a>
-        </div>
-      </section>
-    </div>
+        <section className="portfolio-cta">
+          <div className="cta-content">
+            <h2>Ready to Start Your Project?</h2>
+            <p>Let's work together to create something amazing for your organization.</p>
+            <a href="/contact" className="cta-button">Get in Touch</a>
+          </div>
+        </section>
+      </div>
+    </>
   );
 }
 

@@ -101,6 +101,7 @@
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+  opacity: 1;
 }
 
 .portfolio-card:hover {
@@ -246,6 +247,14 @@
   color: white;
   font-size: 0.9rem;
   font-weight: 500;
+}
+
+.image-skeleton {
+  display: none;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 @media (max-width: 768px) {

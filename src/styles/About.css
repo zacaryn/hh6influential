@@ -149,50 +149,127 @@
 
 .team-card {
   background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .team-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.team-images {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
-  margin-bottom: 20px;
+.team-image-wrapper {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
 }
 
 .team-image {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease;
+}
+
+.team-card:hover .team-image {
+  transform: scale(1.05);
+}
+
+.team-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0, 42, 110, 0.9), transparent);
+  display: flex;
+  align-items: flex-end;
+}
+
+.role-tag {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.team-content {
+  padding: 25px;
 }
 
 .team-content h3 {
   color: #002a6e;
   font-size: 1.5rem;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
-.team-content h4 {
-  color: #666;
-  font-size: 1.1rem;
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 15px;
+}
+
+.skill-tag {
+  background: rgba(0, 42, 110, 0.1);
+  color: #002a6e;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
   font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+  background: rgba(0, 42, 110, 0.2);
+  transform: translateY(-2px);
 }
 
 .team-content p {
   color: #666;
   line-height: 1.6;
-  margin: 0;
+  margin: 15px 0 0 0;
+}
+
+.about-cta {
+  text-align: center;
+  padding: 60px 40px;
+  background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
+  color: white;
+  border-radius: 15px;
+  margin-top: 60px;
+}
+
+.about-cta h2 {
+  color: white;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.about-cta p {
+  color: white;
+  opacity: 0.95;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.about-cta .cta-button {
+  display: inline-block;
+  background: white;
+  color: #002a6e;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.about-cta .cta-button:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px) {
@@ -208,11 +285,88 @@
     padding: 30px 20px;
   }
 
-  .team-card {
+  .team-image-wrapper {
+    height: 250px;
+  }
+
+  .team-content {
     padding: 20px;
   }
 
-  .team-image {
-    height: 180px;
+  .about-cta {
+    padding: 40px 20px;
+  }
+
+  .about-cta h2 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Add to existing About.css */
+.social-links {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.dual-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 119, 181, 0.1);
+  padding: 4px;
+  border-radius: 25px;
+}
+
+.linkedin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0077b5;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.linkedin-icon {
+  font-weight: bold;
+  font-style: italic;
+  background: #0077b5;
+  color: white;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+.link-separator {
+  color: #0077b5;
+  font-weight: 300;
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+}
+
+.linkedin-link:hover {
+  background: rgba(0, 119, 181, 0.2);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .dual-links {
+    gap: 8px;
+    padding: 3px;
+  }
+
+  .linkedin-link {
+    padding: 5px 10px;
+    font-size: 0.85rem;
   }
 }

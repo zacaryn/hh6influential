@@ -27,7 +27,7 @@
 }
 
 .logo {
-    height: 40px;
+    height: 60px;
     width: auto;
     transition: transform 0.3s ease;
 }
@@ -184,5 +184,19 @@
     .nav-links a.active {
         background-color: rgba(255, 255, 255, 0.1);
     }
+
+    .navbar-brand img {
+        height: 50px; /* Slightly smaller on mobile but still prominent */
+    }
+}
+
+.navbar-brand img {
+    height: 60px; /* Increased from default size */
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+    transform: scale(1.05);
 }
   

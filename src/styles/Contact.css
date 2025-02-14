@@ -126,6 +126,26 @@
   color: #004db3;
 }
 
+.linkedin-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #0077b5;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.linkedin-button:hover {
+  background: #006396;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 119, 181, 0.2);
+}
+
 @media (max-width: 768px) {
   .contact-hero {
     padding: 40px 20px;

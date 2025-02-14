@@ -83,12 +83,51 @@
   
   /* Hero Section */
   .home-hero {
+    position: relative;
     text-align: center;
     padding: 60px 40px;
-    background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
-    color: white;
     border-radius: 15px;
     margin-bottom: 40px;
+    overflow: hidden;
+  }
+
+  /* Adjust the flag background */
+  .home-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/americanflag.jpg');  /* Try relative path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.8;  /* Increased opacity to check if image is loading */
+    z-index: 1;
+  }
+
+  /* Adjust the gradient overlay */
+  .home-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(0, 42, 110, 0.9) 0%, 
+      rgba(0, 77, 179, 0.9) 100%
+    );  /* Made gradient more transparent */
+    z-index: 2;
+  }
+
+  /* Ensure content stays on top */
+  .home-hero h1,
+  .home-hero p,
+  .home-hero .cta-button {
+    position: relative;
+    z-index: 3;  /* Above both the image and gradient */
   }
 
   .home-hero h1 {
@@ -105,24 +144,6 @@
     margin: 0 auto 2rem;
     line-height: 1.6;
     opacity: 0.95;
-  }
-
-  .home-hero .cta-button {
-    display: inline-block;
-    background: white;
-    color: #002a6e;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .home-hero .cta-button:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 
   /* Services Section */
