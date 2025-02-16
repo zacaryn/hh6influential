@@ -6,7 +6,7 @@ function About() {
   const teamMembers = [
     {
       name: "Tim Head",
-      role: "Founder",
+      role: "Co-Founder",
       tags: ["Army Veteran", "Leadership", "Strategic Planning"],
       description: "Retired Lieutenant Colonel in the Army, later joining the Georgia National Guard. His experience and leadership inspire our commitment to helping veterans and families.",
       image: "/assets/images/ltc_head.png",

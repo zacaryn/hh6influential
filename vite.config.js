@@ -7,5 +7,15 @@ export default defineConfig({
   server: {
     host: '10.0.0.53',  // This exposes to all network interfaces
     port: 5173
+  },
+  base: '/',
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom']
+        }
+      }
+    }
   }
 })
