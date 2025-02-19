@@ -59,7 +59,7 @@
   opacity: 0.95;
 }
 
-@media (max-width: 768px) {
+@media screen {
   .page-hero {
     padding: 40px 20px;
   }
