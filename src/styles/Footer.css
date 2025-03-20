@@ -1,6 +1,6 @@
 .footer {
     background: #002a6e;
-    color: white;
+    color: #ffffff;
     text-align: center;
     padding: 15px 20px;
     position: fixed;
@@ -34,13 +34,14 @@
 }
 
 .divider {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 0.8rem;
 }
 
 .footer p {
     margin: 0;
     font-size: 0.95rem;
+    color: #ffffff;
 }
 
 @media (max-width: 768px) {
@@ -50,6 +51,7 @@
     
     .footer p {
         font-size: 0.85rem;
+        color: #ffffff;
     }
 
     .social-links {

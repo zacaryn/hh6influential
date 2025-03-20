@@ -1,0 +1,16 @@
+OpenGraph Image Specifications:
+
+1. File name: og-image.jpg
+2. Dimensions: 1200px x 630px (optimal size for social sharing)
+3. Format: JPG or PNG (JPG recommended for web)
+4. Size: Keep under 200KB for fast loading
+5. Content:
+   - Include HH6 Influential logo
+   - Use company colors (navy blue #002a6e)
+   - Include a brief tagline like "Digital Solutions for Your Business"
+   - Avoid small text (must be readable when scaled down)
+   - Include visual elements that represent your services (web design, social media, graphic design)
+
+6. Placement: Save the image in this directory (public/assets/images/)
+
+When ready, remove this guide file and use the actual og-image.jpg in its place. 

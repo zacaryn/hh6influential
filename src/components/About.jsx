@@ -32,7 +32,11 @@ function About() {
 
   return (
     <>
-      <PageHead title="About Us" />
+      <PageHead 
+        title="About Us" 
+        description="Meet our veteran-led team at HH6 Influential. We're dedicated professionals in web development, social media management, and graphic design."
+        keywords="veteran owned business, digital team, web development experts, social media professionals, HH6 team, about us"
+      />
       <div className="page-container">
         <section className="about-hero">
           <h1>Meet Our Team</h1>

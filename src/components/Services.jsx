@@ -39,7 +39,11 @@ function Services() {
 
   return (
     <>
-      <PageHead title="Services" />
+      <PageHead 
+        title="Services" 
+        description="Comprehensive digital solutions including web development, social media management, and graphic design services tailored for your business needs."
+        keywords="web development services, social media management, graphic design, custom websites, digital marketing, business solutions"
+      />
       <div className="page-container">
         <section className="services-hero">
           <h1>Our Services</h1>

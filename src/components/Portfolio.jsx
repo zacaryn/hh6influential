@@ -8,6 +8,13 @@ function Portfolio() {
   
   const portfolioItems = [
     {
+      title: "Real Estate Professional Website",
+      category: "Web Development",
+      description: "Custom-built responsive website for an eXp Realty agent, featuring property listings integration, client testimonials, and neighborhood guides. Designed to showcase the agent's expertise in the Colorado Springs real estate market.",
+      image: "/assets/images/danswebsite.jpg",
+      link: "https://danweihmiller.com/"
+    },
+    {
       title: "Georgia National Guard Family Support Foundation",
       category: "Web Development",
       description: "Developed a comprehensive SQL database system with custom admin panel for managing the foundation's events and operations.",
@@ -38,8 +45,8 @@ function Portfolio() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (portfolioItems[1].images) {
-        setCurrentSlide((prev) => (prev + 1) % portfolioItems[1].images.length);
+      if (portfolioItems[2].images) {
+        setCurrentSlide((prev) => (prev + 1) % portfolioItems[2].images.length);
       }
     }, 3000);
     return () => clearInterval(timer);
@@ -47,7 +54,11 @@ function Portfolio() {
 
   return (
     <>
-      <PageHead title="Portfolio" />
+      <PageHead 
+        title="Portfolio" 
+        description="Explore our work with organizations like the Georgia National Guard Family Support Foundation. See how we've transformed digital presence through our projects."
+        keywords="portfolio, digital projects, web design examples, social media campaigns, client work, Georgia National Guard, case studies"
+      />
       <div className="page-container">
         <section className="portfolio-hero">
           <h1>Our Portfolio</h1>

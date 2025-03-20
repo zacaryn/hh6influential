@@ -1,0 +1,139 @@
+.not-found-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.not-found-content {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.not-found-content h1 {
+  font-size: 5rem;
+  color: #002a6e;
+  margin: 0;
+  line-height: 1;
+  font-weight: 800;
+  text-shadow: 3px 3px 0 rgba(0, 42, 110, 0.1);
+}
+
+.not-found-content h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.not-found-content p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.not-found-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.not-found-image img {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  opacity: 0.9;
+  animation: floating 3s ease-in-out infinite;
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.home-button, .contact-button {
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.home-button {
+  background-color: #002a6e;
+  color: white;
+  border: none;
+}
+
+.home-button:hover {
+  background-color: #003d9e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 42, 110, 0.2);
+}
+
+.contact-button {
+  background-color: transparent;
+  color: #002a6e;
+  border: 2px solid #002a6e;
+}
+
+.contact-button:hover {
+  background-color: rgba(0, 42, 110, 0.05);
+  transform: translateY(-2px);
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .not-found-container {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+  
+  .not-found-content {
+    padding-right: 0;
+    padding-top: 30px;
+  }
+  
+  .not-found-image img {
+    max-height: 200px;
+  }
+  
+  .actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .not-found-content h1 {
+    font-size: 4rem;
+  }
+  
+  .not-found-content h2 {
+    font-size: 2rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .home-button, .contact-button {
+    width: 100%;
+    text-align: center;
+  }
+} 

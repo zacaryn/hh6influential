@@ -6,7 +6,11 @@ import PageHead from './common/PageHead';
 function Contact() {
   return (
     <>
-      <PageHead title="Contact" />
+      <PageHead 
+        title="Contact" 
+        description="Get in touch with HH6 Influential. Contact us about web development, social media management, and graphic design services."
+        keywords="contact us, hire web developer, social media services, get in touch, business inquiry, consultation"
+      />
       <div className="page-container">
         <section className="contact-hero">
           <h1>Contact Us</h1>

@@ -21,7 +21,11 @@ function Home() {
 
   return (
     <>
-      <PageHead title="Home" />
+      <PageHead 
+        title="Home" 
+        description="HH6 Influential provides exceptional digital solutions including web development, social media management, and graphic design. Veteran-owned and operated."
+        keywords="digital solutions, veteran owned business, web development, social media management, graphic design, HH6, Household Six"
+      />
       <div className="page-container">
         <section className="home-hero">
           <h1>Welcome to HH6 Influential</h1>
