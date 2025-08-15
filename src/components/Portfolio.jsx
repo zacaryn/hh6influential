@@ -1,110 +1,85 @@
 // src/components/Portfolio.jsx
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./../styles/Portfolio.css";
 import PageHead from './common/PageHead';
 
 function Portfolio() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  
-  const portfolioItems = [
+  const featuredClients = [
     {
-      title: "Real Estate Professional Website",
-      category: "Web Development",
-      description: "Custom-built responsive website for an eXp Realty agent, featuring property listings integration, client testimonials, and neighborhood guides. Designed to showcase the agent's expertise in the Colorado Springs real estate market.",
+      name: "Bluebird Mortgage",
+      type: "Mortgage Brokerage",
+      location: "Colorado Springs, CO",
+      description: "Professional mortgage brokerage website featuring loan calculators, client testimonials, and specialized programs for VA, FHA, and conventional loans. Streamlined the mortgage application process for Colorado Springs homebuyers.",
+      image: "/assets/images/bluebirdwebsite.jpg",
+      website: "https://bluebirdmortgage.com/",
+      services: ["Website Development", "Loan Calculator Integration", "Client Portal", "SEO Optimization"]
+    },
+    {
+      name: "Dan Weihmiller Real Estate",
+      type: "Real Estate Professional", 
+      location: "Colorado Springs, CO",
+      description: "Custom real estate website for an eXp Realty agent featuring property listings integration, neighborhood guides, market insights, and lead generation systems to establish credibility in the Colorado Springs market.",
       image: "/assets/images/danswebsite.jpg",
-      link: "https://danweihmiller.com/"
+      website: "https://danweihmiller.com/",
+      services: ["Website Development", "Property Integration", "Lead Generation", "Market Analytics"]
     },
     {
-      title: "Georgia National Guard Family Support Foundation",
-      category: "Web Development",
-      description: "Developed a comprehensive SQL database system with custom admin panel for managing the foundation's events and operations.",
-      image: "/assets/images/ggflogo.png",
-      link: "https://georgiaguardfamily.org/"
-    },
-    {
-      title: "Veteran Support Programs",
-      category: "Social Media & Design",
-      description: "Created engaging social media campaigns and promotional materials to raise awareness for veteran support initiatives.",
-      images: [
-        "/assets/images/flyer1.png",
-        "/assets/images/flyer2.png",
-        "/assets/images/flyer3.png",
-        "/assets/images/flyer4.png",
-        "/assets/images/flyer5.png"
-      ],
-      link: "#"
-    },
-    {
-      title: "Social Media Management",
-      category: "Digital Marketing",
-      description: "Comprehensive social media strategy and content management across Facebook, Instagram, and other platforms, boosting engagement and reach for brands and organizations.",
-      image: "/assets/images/media1.png",
-      link: "#"
+      name: "Georgia National Guard Family Support Foundation",
+      type: "Non-Profit Organization",
+      location: "Marietta, GA", 
+      description: "Comprehensive digital solution for a 501(c)(3) non-profit supporting Georgia National Guard families since 1994. Built custom database systems, donation platforms, and event management tools.",
+      image: "/assets/images/guardwebsite.jpg",
+      website: "https://georgiaguardfamily.org/",
+      services: ["Website Development", "Database Systems", "Donation Platform", "Event Management"]
     }
   ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (portfolioItems[2].images) {
-        setCurrentSlide((prev) => (prev + 1) % portfolioItems[2].images.length);
-      }
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
 
   return (
     <>
       <PageHead 
         title="Portfolio" 
-        description="Explore our work with organizations like the Georgia National Guard Family Support Foundation. See how we've transformed digital presence through our projects."
-        keywords="portfolio, digital projects, web design examples, social media campaigns, client work, Georgia National Guard, case studies"
+        description="Featured client projects including Bluebird Mortgage, Dan Weihmiller Real Estate, and Georgia National Guard Family Support Foundation."
+        keywords="portfolio, web development, Colorado Springs, mortgage website, real estate website, non-profit"
       />
+      
       <div className="page-container">
         <section className="portfolio-hero">
-          <h1>Our Portfolio</h1>
+          <h1>Featured Client Work</h1>
           <p className="lead">
-            Explore our work and see how we've helped organizations transform their digital presence.
+            Professional digital solutions that drive real results for our clients nationwide.
           </p>
         </section>
 
-        <section className="portfolio-grid">
-          {portfolioItems.map((item, index) => (
-            <div key={index} className="portfolio-card">
-              <div className="portfolio-image">
-                {item.images ? (
-                  <>
-                    <img 
-                      src={item.images[currentSlide]} 
-                      alt={`${item.title} - Slide ${currentSlide + 1}`}
-                    />
-                    <div className="slideshow-controls">
-                      <span className="slide-counter">
-                        {currentSlide + 1} / {item.images.length}
-                      </span>
-                    </div>
-                  </>
-                ) : (
-                  <img src={item.image} alt={item.title} />
-                )}
-                <div className="portfolio-overlay">
-                  <a 
-                    href={item.link} 
-                    className="view-project"
-                    target={item.link !== "#" ? "_blank" : undefined}
-                    rel={item.link !== "#" ? "noopener noreferrer" : undefined}
-                  >
-                    View Project
-                  </a>
-                </div>
-              </div>
-              <div className="portfolio-content">
-                <span className="category">{item.category}</span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </div>
+        {featuredClients.map((client, index) => (
+          <div key={index} className="client-showcase-card">
+            <div className="client-image-wrapper">
+              <img 
+                src={client.image} 
+                alt={`${client.name} website`}
+                className="client-website-image"
+              />
             </div>
-          ))}
-        </section>
+            
+            <div className="client-details">
+              <div className="client-meta">
+                <span className="client-type">{client.type}</span>
+                <span className="client-location">{client.location}</span>
+              </div>
+              
+              <h2 className="client-name">{client.name}</h2>
+              <p className="client-description">{client.description}</p>
+              
+              <a 
+                href={client.website} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="visit-website-btn"
+              >
+                Visit Website →
+              </a>
+            </div>
+          </div>
+        ))}
 
         <section className="portfolio-cta">
           <div className="cta-content">

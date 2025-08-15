@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./../styles/About.css"; // Page-specific styles
 import PageHead from './common/PageHead';
 
 function About() {
+  const [expandedCards, setExpandedCards] = useState({});
+
+  const toggleDescription = (index) => {
+    setExpandedCards(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
   const teamMembers = [
     {
       name: "Tim Head",
@@ -13,15 +21,23 @@ function About() {
       linkedin: "https://www.linkedin.com/in/timothyahead/"
     },
     {
-      name: "Zach and Max",
-      role: "Development Team",
-      tags: ["Web Development", "UI/UX Design", "Full Stack"],
-      description: "The next-generation developers, passionate about technology and creating innovative solutions for our clients.",
-      image: "/assets/images/zachary_maxwell.jpg",
-      linkedin: ["https://www.linkedin.com/in/zachwhead/", "https://www.linkedin.com/in/maxwell-head-61933a2b2/"]
+      name: "Zach Head",
+      role: "Lead Developer",
+      tags: ["Full Stack Development", "Frontend & Backend", "React"],
+      description: "Lead full-stack developer with expertise in both frontend and backend technologies. Specializes in creating seamless user experiences while building robust server-side architectures.",
+      image: "/assets/images/zachary.jpg",
+      linkedin: "https://www.linkedin.com/in/zachwhead/"
     },
     {
-      name: "Leslie",
+      name: "Max Head",
+      role: "Sys Admin & Developer",
+      tags: ["System Administration", "Backend Development", "Infrastructure"],
+      description: "Systems administrator and backend developer focused on server infrastructure, database optimization, and ensuring reliable, scalable backend solutions for our applications.",
+      image: "/assets/images/maxwell.jpg",
+      linkedin: "https://www.linkedin.com/in/maxwell-head-61933a2b2/"
+    },
+    {
+      name: "Leslie Head",
       role: "Co-Founder & Creative Director",
       tags: ["Creative Direction", "Brand Strategy", "Business Development"],
       description: "With expertise in graphic design and media, ensures creative excellence in all our work as co-founder and creative director.",
@@ -62,26 +78,22 @@ function About() {
                       <span key={i} className="skill-tag">{tag}</span>
                     ))}
                   </div>
-                  <p>{member.description}</p>
+                  <div className={`team-description ${expandedCards[index] ? '' : 'collapsed'}`}>
+                    <p>{member.description}</p>
+                  </div>
+                  {member.description.length > 100 && (
+                    <button 
+                      className="read-more-btn"
+                      onClick={() => toggleDescription(index)}
+                    >
+                      {expandedCards[index] ? 'Read Less' : 'Read More'}
+                    </button>
+                  )}
                   <div className="social-links">
-                    {Array.isArray(member.linkedin) ? (
-                      <div className="dual-links">
-                        <a href={member.linkedin[0]} target="_blank" rel="noopener noreferrer" className="linkedin-link">
-                          <span className="linkedin-icon">in</span>
-                          Zach
-                        </a>
-                        <span className="link-separator">|</span>
-                        <a href={member.linkedin[1]} target="_blank" rel="noopener noreferrer" className="linkedin-link">
-                          <span className="linkedin-icon">in</span>
-                          Max
-                        </a>
-                      </div>
-                    ) : (
-                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="linkedin-link">
-                        <span className="linkedin-icon">in</span>
-                        LinkedIn Profile
-                      </a>
-                    )}
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="linkedin-link">
+                      <span className="linkedin-icon">in</span>
+                      LinkedIn Profile
+                    </a>
                   </div>
                 </div>
               </div>
