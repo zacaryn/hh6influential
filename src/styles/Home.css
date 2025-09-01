@@ -142,7 +142,7 @@
   .home-hero .lead {
     color: white;
     font-size: 1.25rem;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto 2rem;
     line-height: 1.6;
     opacity: 0.95;
@@ -214,32 +214,136 @@
     line-height: 1.6;
   }
 
-  .services-container {
+  /* Services Grid - Clean 3-card layout */
+  .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin: 40px 0;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 30px 0;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .service-card {
     background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 20px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
     border: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 180px;
+  }
+
+  .service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .service-icon {
+    width: 45px;
+    height: 45px;
+    color: #002a6e;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .service-icon svg {
+    width: 100%;
+    height: 100%;
   }
 
   .service-card h3 {
     color: #002a6e;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+    line-height: 1.2;
   }
 
   .service-card p {
     color: #666;
-    line-height: 1.6;
+    line-height: 1.4;
     margin: 0;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+
+
+  /* Military Discount Section */
+  .military-discount-section {
+    margin: 60px 0;
+  }
+
+  .discount-container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    align-items: center;
+    background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 8px 30px rgba(0, 42, 110, 0.2);
+  }
+
+  .discount-image img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    display: block;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+  }
+
+  .discount-content h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  .discount-content p {
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+  }
+
+  .discount-note {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    font-style: italic;
+    margin: 0 0 20px 0;
+  }
+
+  .discount-cta .cta-button {
+    display: inline-block;
+    background: white;
+    color: #002a6e;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
+  }
+
+  .discount-cta .cta-button:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   }
 
   /* Services CTA Section */
@@ -315,10 +419,45 @@
     color: #666;
   }
 
+  /* Tablet Responsive */
+  @media (max-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      padding: 18px 15px;
+      min-height: 160px;
+    }
+
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
+
+    .service-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .service-card p {
+      font-size: 0.8rem;
+    }
+  }
+
   /* Mobile Responsive */
   @media (max-width: 768px) {
     .home-hero {
       padding: 40px 20px;
+    }
+
+    /* Fit height, preserve aspect ratio; allow horizontal overflow */
+    .home-hero::before {
+      background-size: auto 100%;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .home-hero h1 {
@@ -353,8 +492,33 @@
       font-size: 1.8rem;
     }
 
-    .services-container {
+
+
+    /* Mobile services grid - stack vertically */
+    .services-grid {
       grid-template-columns: 1fr;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .service-card {
+      padding: 16px 15px;
+      min-height: 140px;
+    }
+
+    .service-icon {
+      width: 35px;
+      height: 35px;
+      margin-bottom: 8px;
+    }
+
+    .service-card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .service-card p {
+      font-size: 0.8rem;
     }
 
     .services-cta {
@@ -376,6 +540,24 @@
     .pledge-section h2 {
       font-size: 1.8rem;
     }
+
+    /* Military discount section responsive only */
+    .discount-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 30px 20px;
+      gap: 25px;
+    }
+
+    .discount-image img {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+    }
+
+    .discount-content h2 {
+      font-size: 1.6rem;
+    }
   }
 
   @media (max-width: 480px) {
@@ -392,5 +574,28 @@
       width: 14px;
       height: 14px;
     }
+
+    /* Extra small mobile adjustments */
+    .service-card {
+      padding: 14px 12px;
+      min-height: 130px;
+    }
+
+    .service-icon {
+      width: 32px;
+      height: 32px;
+      margin-bottom: 6px;
+    }
+
+    .service-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 5px;
+    }
+
+    .service-card p {
+      font-size: 0.75rem;
+    }
+
+
   }
   

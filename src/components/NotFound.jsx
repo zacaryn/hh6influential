@@ -1,15 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PageHead from './common/PageHead';
+import Seo from '../components/Seo';
+import { ROUTE_TITLE_RULES, ROUTE_DESCRIPTIONS } from '../components/seoConfig';
 import "../styles/NotFound.css";
 
 function NotFound() {
   return (
     <>
-      <PageHead 
-        title="Page Not Found" 
-        description="The page you are looking for could not be found. Please check the URL or navigate back to the home page."
-        keywords="404, page not found, error, navigation"
+      <Seo
+        title={ROUTE_TITLE_RULES.notFound}
+        description={ROUTE_DESCRIPTIONS.notFound}
+        path="/404"
+        noIndex
       />
       <div className="page-container">
         <section className="not-found-container">

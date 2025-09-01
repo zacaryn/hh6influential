@@ -93,6 +93,11 @@
   border-color: rgba(255, 0, 0, 0.6);
 }
 
+.hero-social-link.x:hover {
+  background: rgba(17, 17, 17, 0.3);
+  border-color: rgba(17, 17, 17, 0.6);
+}
+
 /* Contact Info Section */
 .contact-info {
   margin-bottom: 60px;

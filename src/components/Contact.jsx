@@ -1,15 +1,23 @@
 // src/components/Contact.jsx
 import React from "react";
 import "./../styles/Contact.css";
-import PageHead from './common/PageHead';
+import Seo from '../components/Seo';
+import { ROUTE_TITLE_RULES, ROUTE_DESCRIPTIONS, PRIMARY_DOMAIN } from '../components/seoConfig';
+import { BreadcrumbSchema } from '../components/Schema';
 
 function Contact() {
   return (
     <>
-      <PageHead 
-        title="Contact" 
-        description="Get in touch with HH6 Influential. Contact us about web development, social media management, and graphic design services in Colorado Springs and Georgia."
-        keywords="contact us, hire web developer, social media services, get in touch, business inquiry, consultation, Colorado Springs, Georgia"
+      <Seo
+        title={ROUTE_TITLE_RULES.contact}
+        description={ROUTE_DESCRIPTIONS.contact}
+        path="/contact"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: `${PRIMARY_DOMAIN}/` },
+          { name: 'Contact', url: `${PRIMARY_DOMAIN}/contact` }
+        ]}
       />
       <div className="page-container">
         <section className="contact-hero">
@@ -30,6 +38,17 @@ function Contact() {
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </a>
+              <a 
+                href="https://x.com/HH6Influential" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hero-social-link x"
+                title="X (Twitter)"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2H21L13.5 10.59 22 22h-6.563l-5.09-6.656L4.5 22H2l8.062-9.28L2 2h6.688l4.594 6.094L18.244 2zm-1.125 18h1.5L7.03 4h-1.5l11.589 16z"/>
                 </svg>
               </a>
               

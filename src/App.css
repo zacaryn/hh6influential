@@ -87,20 +87,6 @@ p {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-  .page-container {
-    margin: 80px 15px 40px; /* Reduced bottom margin for mobile */
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  h2 {
-    font-size: 1.75rem;
-  }
-}
 
 header {
   background: #002a6e;

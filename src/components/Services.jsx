@@ -1,7 +1,9 @@
 // src/components/Services.jsx
 import React, { useState } from "react";
 import "./../styles/Services.css";
-import PageHead from './common/PageHead';
+import Seo from '../components/Seo';
+import { ROUTE_TITLE_RULES, ROUTE_DESCRIPTIONS, BUSINESS_NAME, PRIMARY_DOMAIN } from '../components/seoConfig';
+import { ServiceSchema, BreadcrumbSchema } from '../components/Schema';
 
 function Services() {
   const [expandedService, setExpandedService] = useState(null);
@@ -266,10 +268,17 @@ function Services() {
 
   return (
     <>
-      <PageHead 
-        title="Services" 
-        description="Complete digital services including web design, social media management, video creation, graphic design, web hosting, system administration, and SEO optimization."
-        keywords="web development, social media management, video editing, graphic design, web hosting, webmaster services, SEO optimization, Google ads, Meta ads, digital marketing"
+      <Seo
+        title={ROUTE_TITLE_RULES.services}
+        description={ROUTE_DESCRIPTIONS.services}
+        path="/services"
+      />
+      <ServiceSchema name="Custom Web Development" providerName={BUSINESS_NAME} />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: `${PRIMARY_DOMAIN}/` },
+          { name: 'Services', url: `${PRIMARY_DOMAIN}/services` }
+        ]}
       />
       <div className="page-container">
         <section className="services-hero">

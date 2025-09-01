@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./../styles/About.css"; // Page-specific styles
-import PageHead from './common/PageHead';
+import Seo from '../components/Seo';
+import { ROUTE_TITLE_RULES, ROUTE_DESCRIPTIONS, PRIMARY_DOMAIN } from '../components/seoConfig';
+import { BreadcrumbSchema } from '../components/Schema';
 
 function About() {
   const [expandedCards, setExpandedCards] = useState({});
@@ -48,10 +50,16 @@ function About() {
 
   return (
     <>
-      <PageHead 
-        title="About Us" 
-        description="Meet our veteran-led team at HH6 Influential. We're dedicated professionals in web development, social media management, and graphic design."
-        keywords="veteran owned business, digital team, web development experts, social media professionals, HH6 team, about us"
+      <Seo
+        title={ROUTE_TITLE_RULES.about}
+        description={ROUTE_DESCRIPTIONS.about}
+        path="/about"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: `${PRIMARY_DOMAIN}/` },
+          { name: 'About', url: `${PRIMARY_DOMAIN}/about` }
+        ]}
       />
       <div className="page-container">
         <section className="about-hero">

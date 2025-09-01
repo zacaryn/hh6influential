@@ -1,7 +1,9 @@
 // src/components/Portfolio.jsx
 import React from "react";
 import "./../styles/Portfolio.css";
-import PageHead from './common/PageHead';
+import Seo from '../components/Seo';
+import { ROUTE_TITLE_RULES, ROUTE_DESCRIPTIONS, PRIMARY_DOMAIN } from '../components/seoConfig';
+import { BreadcrumbSchema } from '../components/Schema';
 
 function Portfolio() {
   const featuredClients = [
@@ -36,10 +38,16 @@ function Portfolio() {
 
   return (
     <>
-      <PageHead 
-        title="Portfolio" 
-        description="Featured client projects including Bluebird Mortgage, Dan Weihmiller Real Estate, and Georgia National Guard Family Support Foundation."
-        keywords="portfolio, web development, Colorado Springs, mortgage website, real estate website, non-profit"
+      <Seo
+        title={ROUTE_TITLE_RULES.portfolio}
+        description={ROUTE_DESCRIPTIONS.portfolio}
+        path="/portfolio"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: `${PRIMARY_DOMAIN}/` },
+          { name: 'Portfolio', url: `${PRIMARY_DOMAIN}/portfolio` }
+        ]}
       />
       
       <div className="page-container">

@@ -12,9 +12,7 @@ function Footer() {
             <h4>HH6 Influential</h4>
             <p>Veteran-owned digital solutions company specializing in web development, social media management, and graphic design.</p>
             <div className="veteran-badge">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
-              </svg>
+              <img src="/assets/images/veteran_owned.png" alt="Veteran-Owned" />
               Veteran Owned
             </div>
           </div>
@@ -73,6 +71,11 @@ function Footer() {
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </a>
+              <a href="https://x.com/HH6Influential" target="_blank" rel="noopener noreferrer" className="social-icon x" title="X (Twitter)">
+                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2H21L13.5 10.59 22 22h-6.563l-5.09-6.656L4.5 22H2l8.062-9.28L2 2h6.688l4.594 6.094L18.244 2zm-1.125 18h1.5L7.03 4h-1.5l11.589 16z"/>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
@@ -82,6 +85,8 @@ function Footer() {
             <p>&copy; {new Date().getFullYear()} HH6 Influential. All rights reserved.</p>
             <div className="footer-meta">
               <span>Proudly serving clients nationwide</span>
+              <span className="footer-separator"></span>
+              <Link to="/terms" className="footer-link" style={{padding:0, borderLeft:'none'}}>Terms of Service</Link>
             </div>
           </div>
         </div>
