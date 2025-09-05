@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import "./../styles/Header.css";
+'use client';
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   // Close menu when route changes
   useEffect(() => {
     setMenuOpen(false);
-  }, [location]);
+  }, [pathname]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -48,7 +50,7 @@ function Header() {
       <div className="container">
         {/* Logo Section */}
         <div className="logo-container">
-          <Link to="/" onClick={() => setMenuOpen(false)}>
+          <Link href="/" onClick={() => setMenuOpen(false)}>
             <img src="/assets/images/hh6logo.png" alt="HH6 Logo" className="logo" />
           </Link>
         </div>
@@ -77,14 +79,24 @@ function Header() {
             ].map(({ path, label }) => (
               <li key={path}>
                 <Link 
-                  to={path} 
-                  className={location.pathname === path ? 'active' : ''}
+                  href={path} 
+                  className={pathname === path ? 'active' : ''}
                   onClick={() => setMenuOpen(false)}
                 >
                   {label}
                 </Link>
               </li>
             ))}
+            <li className="blog-nav-item">
+              <span className="nav-separator">|</span>
+              <Link 
+                href="/blog" 
+                className={`blog-link ${pathname.startsWith('/blog') ? 'active' : ''}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                Blog
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

@@ -67,7 +67,7 @@
   background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
   color: white;
   border-radius: 8px;
-  margin-bottom: 50px;
+  margin-bottom: 30px; /* Reduced from 50px */
 }
 
 .portfolio-hero h1 {

@@ -1,7 +1,4 @@
-// src/components/Footer.jsx
-import React from "react";
-import { Link } from "react-router-dom";
-import "./../styles/Footer.css";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -20,11 +17,12 @@ function Footer() {
           <div className="footer-section">
             <h4>Quick Links</h4>
             <nav className="footer-nav">
-              <Link to="/" className="footer-link">Home</Link>
-              <Link to="/about" className="footer-link">About</Link>
-              <Link to="/services" className="footer-link">Services</Link>
-              <Link to="/portfolio" className="footer-link">Portfolio</Link>
-              <Link to="/contact" className="footer-link">Contact</Link>
+              <Link href="/" className="footer-link">Home</Link>
+              <Link href="/about" className="footer-link">About</Link>
+              <Link href="/services" className="footer-link">Services</Link>
+              <Link href="/portfolio" className="footer-link">Portfolio</Link>
+              <Link href="/contact" className="footer-link">Contact</Link>
+              <Link href="/blog" className="footer-link blog-footer-link">Blog</Link>
             </nav>
           </div>
           
@@ -86,7 +84,7 @@ function Footer() {
             <div className="footer-meta">
               <span>Proudly serving clients nationwide</span>
               <span className="footer-separator"></span>
-              <Link to="/terms" className="footer-link" style={{padding:0, borderLeft:'none'}}>Terms of Service</Link>
+              <Link href="/terms" className="footer-link" style={{padding:0, borderLeft:'none'}}>Terms of Service</Link>
             </div>
           </div>
         </div>

@@ -300,21 +300,33 @@
 }
 
 .about-cta .cta-button {
-  display: inline-block;
-  background: white;
-  color: #002a6e;
-  padding: 15px 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.3s ease;
+  display: inline-block !important;
+  background: white !important;
+  color: #002a6e !important;
+  padding: 15px 30px !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease !important;
 }
 
 .about-cta .cta-button:hover {
-  background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #002a6e !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Ensure these styles override any global styles */
+body .about-cta .cta-button {
+  background: white !important;
+  color: #002a6e !important;
+}
+
+body .about-cta .cta-button:hover {
+  background: rgba(255, 255, 255, 0.9) !important;
+  color: #002a6e !important;
 }
 
 @media (max-width: 768px) {

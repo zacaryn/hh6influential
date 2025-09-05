@@ -1,8 +1,8 @@
 /* General Container for Pages */
 .page-container {
-    padding: 60px 20px;
+    padding: 40px 40px;
     max-width: 1200px;
-    margin: 100px auto; /* Adjusted for fixed navbar */
+    margin: 80px auto 20px !important; /* Reduced bottom margin to bring content closer to footer */
     background: #f9f9f9; /* Light background for clarity */
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -99,7 +99,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('../assets/images/americanflag.jpg');  /* Try relative path */
+    background-image: url('/assets/images/americanflag.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -124,11 +124,34 @@
 
   /* Ensure content stays on top */
   .home-hero h1,
-  .home-hero p,
-  .home-hero .cta-button {
-    position: relative;
-    z-index: 3;  /* Above both the image and gradient */
-  }
+.home-hero p {
+  position: relative;
+  z-index: 3;  /* Above both the image and gradient */
+}
+
+.home-hero .cta-button {
+  position: relative;
+  z-index: 3;  /* Above both the image and gradient */
+  display: inline-block;
+  background: white;
+  color: #002a6e;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: normal;
+  text-align: center;
+  min-width: 160px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.home-hero .cta-button:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
 
   .home-hero h1 {
     color: white;
@@ -282,12 +305,12 @@
 
   /* Military Discount Section */
   .military-discount-section {
-    margin: 60px 0;
+    margin: 40px 0 20px 0; /* Reduced margins to bring content closer to bottom */
   }
 
   .discount-container {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 320px 1fr;
     gap: 40px;
     align-items: center;
     background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
@@ -297,8 +320,8 @@
   }
 
   .discount-image img {
-    width: 160px;
-    height: 160px;
+    width: 280px;
+    height: 280px;
     object-fit: contain;
     display: block;
     border-radius: 12px;
@@ -352,6 +375,7 @@
     padding: 40px;
     border-radius: 15px;
     margin-top: 40px;
+    margin-bottom: 20px; /* Reduced bottom margin */
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 40px;
@@ -400,9 +424,10 @@
   /* Pledge Section */
   .pledge-section {
     background: #f8f9fa;
-    padding: 60px 40px;
+    padding: 60px 40px 40px 40px; /* Reduced bottom padding */
     text-align: center;
     border-radius: 15px;
+    margin-bottom: 0; /* Remove bottom margin to bring closer to footer */
   }
 
   .pledge-section h2 {
@@ -550,8 +575,8 @@
     }
 
     .discount-image img {
-      width: 120px;
-      height: 120px;
+      width: 200px;
+      height: 200px;
       margin: 0 auto 20px;
     }
 

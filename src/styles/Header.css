@@ -17,6 +17,8 @@
     display: flex;
     align-items: center;
     padding: 0 20px;
+    justify-content: center;
+    gap: 0;
 }
 
 /* Logo Styling */
@@ -24,6 +26,8 @@
     display: flex;
     align-items: center;
     padding-right: 20px;
+    flex-shrink: 0;
+    margin-right: 0;
 }
 
 .logo {
@@ -42,14 +46,14 @@
     width: 1px;
     background-color: rgba(255, 255, 255, 0.3);
     margin-right: 20px;
+    flex-shrink: 0;
 }
 
 /* Navbar Styling */
 .navbar {
     display: flex;
-    flex: 1;
-    justify-content: flex-end;
     align-items: center;
+    position: relative;
 }
 
 .menu-icon {
@@ -107,6 +111,7 @@
     margin: 0;
     padding: 0;
     transition: all 0.3s ease-in-out;
+    align-items: center;
 }
 
 .nav-links a {
@@ -125,6 +130,39 @@
     color: white;
 }
 
+/* Blog Navigation Styling */
+.blog-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-separator {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.blog-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.blog-link:hover,
+.blog-link.active {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: white !important;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
     .menu-icon {
@@ -133,10 +171,11 @@
 
     .nav-links {
         display: flex;
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 90px;
         left: 0;
-        width: 100%;
+        right: 0;
+        width: 100vw;
         background: #002a6e;
         flex-direction: column;
         padding: 0;
@@ -146,12 +185,25 @@
         transition: all 0.3s ease-in-out;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         gap: 0;
+        z-index: 999;
     }
 
     .nav-links.show {
-        max-height: 400px; /* Adjust this value based on your content */
+        max-height: 450px; /* Increased for blog item */
         opacity: 1;
         padding: 20px 0;
+    }
+
+    .blog-nav-item {
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-separator {
+        display: none;
     }
 
     .nav-links li {
