@@ -1439,9 +1439,11 @@ body .services-cta .cta-button:hover {
   justify-content: space-between;
   align-items: center;
   transition: all 0.3s ease;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #002a6e;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: #002a6e !important;
+  line-height: 1.4 !important;
+  font-family: inherit !important;
 }
 
 .faq-question:hover {
@@ -1456,6 +1458,15 @@ body .services-cta .cta-button:hover {
 .faq-question-text {
   flex: 1;
   margin-right: 15px;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: #002a6e !important;
+  line-height: 1.4 !important;
+  font-family: inherit !important;
+}
+
+.faq-question.active .faq-question-text {
+  color: white !important;
 }
 
 .faq-icon {
@@ -1514,6 +1525,40 @@ body .services-cta .cta-button:hover {
 }
 
 .faq-answer-content strong {
+  color: #002a6e;
+  font-weight: 600;
+}
+
+.faq-text-content {
+  color: #555;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.faq-text-content p {
+  margin-bottom: 15px;
+  color: #555;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.faq-text-content p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-text-content ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.faq-text-content li {
+  margin-bottom: 8px;
+  color: #666;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.faq-text-content strong {
   color: #002a6e;
   font-weight: 600;
 }

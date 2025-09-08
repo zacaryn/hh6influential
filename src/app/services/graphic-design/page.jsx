@@ -78,14 +78,14 @@ export default function GraphicDesignService() {
         <div>
           <p>We follow a structured design process to ensure your vision comes to life:</p>
           <ul>
-            <li><strong>Discovery & Briefing:</strong> We start with a 50% deposit and detailed project brief</li>
+            <li><strong>Discovery & Briefing:</strong> Detailed project brief and requirements gathering</li>
             <li><strong>Concept Development:</strong> Initial design concepts and mood boards</li>
             <li><strong>Design Creation:</strong> Professional design work using industry-standard software</li>
             <li><strong>Review & Revisions:</strong> Client feedback and design refinements</li>
             <li><strong>Final Delivery:</strong> High-resolution files in all required formats</li>
             <li><strong>Brand Guidelines:</strong> Style guides and usage instructions for ongoing consistency</li>
           </ul>
-          <p>All projects are defined by written proposals, and requests outside the agreed scope will be billed separately.</p>
+          <p>All projects are defined by written proposals, and requests outside the agreed scope will be billed separately. Payment is based on hourly time spent and is due upon project completion.</p>
         </div>
       )
     },
@@ -180,28 +180,6 @@ export default function GraphicDesignService() {
     }
   ];
 
-  const processSteps = [
-    {
-      step: "01",
-      title: "Brief & Research",
-      description: "We gather your requirements, research your industry, and understand your brand positioning."
-    },
-    {
-      step: "02", 
-      title: "Concept & Sketching",
-      description: "Our designers create initial concepts and sketches to explore different creative directions."
-    },
-    {
-      step: "03",
-      title: "Design & Refinement",
-      description: "We develop the chosen concept into polished designs with multiple variations and options."
-    },
-    {
-      step: "04",
-      title: "Final Delivery",
-      description: "We provide final files in all required formats for both print and digital use."
-    }
-  ];
 
   return (
     <div className="page-container">
@@ -265,22 +243,6 @@ export default function GraphicDesignService() {
         </div>
       </section>
 
-      <section className="service-process">
-        <div className="service-process-content">
-          <h2>Our Design Process</h2>
-          <div className="process-steps">
-            {processSteps.map((step, index) => (
-              <div key={index} className="process-step">
-                <div className="step-number">{step.step}</div>
-                <div className="step-content">
-                  <h3>{step.title}</h3>
-                  <p>{step.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="service-technologies">
         <div className="service-technologies-content">

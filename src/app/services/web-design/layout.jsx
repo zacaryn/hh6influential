@@ -25,7 +25,7 @@ export default function WebDesignLayout({ children }) {
     },
     {
       question: "How does the project process work?",
-      answer: "We follow a structured approach: Discovery & Planning with a 50% deposit and written proposal, Design & Development with custom mockups, Testing & Review across devices, and Launch & Support with final payment due upon completion and 30-day post-launch grace period."
+      answer: "We follow a structured approach: Discovery & Planning with 50% deposit and detailed written proposal, Design & Development with custom mockups, Testing & Review across devices, and Launch & Support with final payment due upon completion and 30-day post-launch grace period."
     },
     {
       question: "Do you provide ongoing maintenance?",

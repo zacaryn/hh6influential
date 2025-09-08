@@ -36,7 +36,9 @@ export default function FAQ({ faqs, title = "Frequently Asked Questions" }) {
             </button>
             <div className={`faq-answer ${openIndex === index ? 'open' : ''}`}>
               <div className="faq-answer-content">
-                {faq.answer}
+                <div className="faq-text-content">
+                  {faq.answer}
+                </div>
               </div>
             </div>
           </div>

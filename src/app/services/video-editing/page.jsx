@@ -65,7 +65,7 @@ export default function VideoEditingService() {
             <li><strong>Format Optimization:</strong> Multiple formats for different platforms and uses</li>
             <li><strong>Final Delivery:</strong> High-resolution files ready for your marketing needs</li>
           </ul>
-          <p>All projects include a 50% deposit before work begins, with final payment due upon completion and delivery.</p>
+          <p>All projects are defined by written proposals, and requests outside the agreed scope will be billed separately. Payment is based on hourly time spent and is due upon project completion.</p>
         </div>
       )
     },

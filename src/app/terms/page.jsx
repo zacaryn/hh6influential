@@ -15,7 +15,7 @@ export default function Terms() {
           <li>
             <h3>Payment Terms</h3>
             <p>
-              A 50% deposit is required before work begins. Remaining balances are due upon project completion and prior to launch. Hosting, maintenance, and retainers are billed in advance and non-refundable once active. Unpaid balances over 15 days may result in suspension of services.
+              Payment terms vary by service: Web Design projects require a 50% deposit before work begins, with remaining balances due upon project completion and prior to launch. All other services (Graphic Design, Video Editing, etc.) are billed based on hourly time spent and due upon project completion. Hosting, maintenance, and retainers are billed in advance and non-refundable once active. Unpaid balances over 15 days may result in suspension of services.
             </p>
           </li>
           <li>
