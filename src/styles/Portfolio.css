@@ -4,9 +4,9 @@
     max-width: 900px;
     margin: 80px auto; /* Adjusted for fixed navbar */
     padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: var(--surface-primary);
+    border-radius: 0;
+    box-shadow: var(--shadow-card);
   }
   
   .portfolio h1 {
@@ -17,9 +17,9 @@
   .portfolio-section {
     margin: 30px auto;
     padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: var(--surface-primary);
+    border-radius: 0;
+    box-shadow: var(--shadow-card);
   }
   
   .portfolio-section h2 {
@@ -32,7 +32,7 @@
     max-height: 400px;
     margin: auto;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 0;
   }
   
   .slide {
@@ -43,7 +43,7 @@
     width: 100%;
     height: 400px;
     object-fit: contain;
-    border-radius: 10px;
+    border-radius: 0;
   }
   
   .prev, .next {
@@ -54,7 +54,7 @@
     padding: 10px;
     cursor: pointer;
     background: rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
+    border-radius: 0;
     color: white;
   }
   
@@ -66,7 +66,7 @@
   padding: 60px 40px;
   background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
   color: white;
-  border-radius: 8px;
+  border-radius: 0;
   margin-bottom: 30px; /* Reduced from 50px */
 }
 
@@ -97,34 +97,34 @@
 }
 
 .portfolio-card {
-  background: white;
-  border-radius: 15px;
+  background: var(--surface-primary);
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease), border-color var(--duration) var(--ease);
   display: flex;
   flex-direction: column;
   opacity: 1;
 }
 
 .portfolio-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(var(--lift-md));
+  box-shadow: var(--shadow-card-hover);
 }
 
 .portfolio-image {
   position: relative;
   height: 300px;
   overflow: hidden;
-  background: #f5f5f5;
+  background: var(--surface-page);
 }
 
 .portfolio-image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transition: transform 0.3s ease;
-  background: white;
+  transition: transform var(--duration) var(--ease);
+  background: var(--surface-primary);
 }
 
 .portfolio-overlay {
@@ -138,7 +138,7 @@
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--duration) var(--ease);
   z-index: 3;
 }
 
@@ -147,7 +147,7 @@
 }
 
 .portfolio-card:hover .portfolio-image img {
-  transform: scale(1.1);
+  transform: scale(1.03);
 }
 
 .view-project {
@@ -155,9 +155,9 @@
   text-decoration: none;
   padding: 12px 24px;
   border: 2px solid white;
-  border-radius: 6px;
+  border-radius: 0;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: background-color 260ms cubic-bezier(0.2, 0, 0, 1), color 260ms cubic-bezier(0.2, 0, 0, 1), border-color 260ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .view-project:hover {
@@ -178,7 +178,7 @@
   padding: 6px 12px;
   background: rgba(0, 42, 110, 0.1);
   color: #002a6e;
-  border-radius: 20px;
+  border-radius: 0;
   font-size: 0.9rem;
   font-weight: 500;
   margin-bottom: 15px;
@@ -191,7 +191,7 @@
 }
 
 .portfolio-content p {
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin: 0;
 }
@@ -201,7 +201,7 @@
   padding: 60px 40px;
   background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
   color: white;
-  border-radius: 8px;
+  border-radius: 0;
   margin-top: 40px;
 }
 
@@ -221,20 +221,20 @@
 
 .portfolio-cta .cta-button {
   display: inline-block;
-  background: white;
+  background: var(--surface-primary);
   color: #002a6e;
   padding: 15px 30px;
   font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 4px;
+  border-radius: 0;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: background-color var(--duration) var(--ease), transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
 }
 
 .portfolio-cta .cta-button:hover {
   background: rgba(255, 255, 255, 0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(var(--lift-md));
+  box-shadow: var(--shadow-card-hover);
 }
 
 .slideshow-controls {
@@ -243,7 +243,7 @@
   right: 15px;
   background: rgba(0, 0, 0, 0.6);
   padding: 5px 10px;
-  border-radius: 15px;
+  border-radius: 0;
   z-index: 2;
 }
 
@@ -295,12 +295,12 @@ html {
 /* Featured Clients Section */
 .client-showcase-card {
   margin-bottom: 40px;
-  background: white;
-  border-radius: 8px;
+  background: var(--surface-primary);
+  border-radius: 0;
   border: 1px solid rgba(0, 42, 110, 0.08);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease), border-color var(--duration) var(--ease);
   display: grid;
   grid-template-columns: 60% 40%;
   gap: 0;
@@ -308,8 +308,8 @@ html {
 }
 
 .client-showcase-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(var(--lift-md));
+  box-shadow: var(--shadow-card-hover);
   border-color: rgba(0, 42, 110, 0.12);
 }
 
@@ -328,7 +328,7 @@ html {
 
 /* Client Image Wrapper */
 .client-image-wrapper {
-  background: #f8f9fa;
+  background: var(--surface-page);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -342,9 +342,9 @@ html {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 4px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 0;
+  box-shadow: var(--shadow-card-hover);
+  border: 1px solid var(--border-subtle);
 }
 
 /* Client Details */
@@ -366,7 +366,7 @@ html {
   background: linear-gradient(135deg, #002a6e, #004db3);
   color: white;
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: 0;
   font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -380,7 +380,7 @@ html {
   border: 1px solid rgba(0, 42, 110, 0.2);
   color: #002a6e;
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: 0;
   font-size: 0.9rem;
   font-weight: 500;
   box-shadow: 0 1px 4px rgba(0, 42, 110, 0.15);
@@ -410,20 +410,21 @@ html {
   background: linear-gradient(135deg, #002a6e, #004db3);
   color: white;
   padding: 12px 20px;
-  border-radius: 4px;
+  border-radius: 0;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease), transform var(--duration) var(--ease);
   width: fit-content;
   gap: 8px;
-  box-shadow: 0 3px 12px rgba(0, 42, 110, 0.25);
+  box-shadow: 0 3px 10px rgba(0, 42, 110, 0.18);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .visit-website-btn:hover {
   background: linear-gradient(135deg, #004db3, #0056c7);
-  box-shadow: 0 4px 16px rgba(0, 42, 110, 0.35);
+  transform: translateY(var(--lift-md));
+  box-shadow: var(--shadow-card-hover);
 }
 
 /* Responsive Design */
@@ -515,4 +516,3 @@ html {
   outline: 2px solid #ffd700;
   outline-offset: 2px;
 }
-  

@@ -4,7 +4,7 @@ function Logo({ className = '', size = 'medium', clickable = true, onClick, show
   const LogoComponent = () => (
     <div className={`admin-logo admin-logo-${size} ${className}`}>
       <img
-        src="/assets/icons/hh6logo.svg"
+        src="/assets/images/hh6logo.png"
         alt="HH6 Logo"
         className="admin-logo-svg"
       />

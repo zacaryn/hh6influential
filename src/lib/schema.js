@@ -2,7 +2,6 @@ import {
   BUSINESS_NAME, 
   PRIMARY_DOMAIN, 
   LOGO_URL, 
-  CONTACT_PHONE,
   SAMEAS_PROFILES
 } from './seo';
 
@@ -24,7 +23,6 @@ export function getOrganizationSchema() {
     logo: LOGO_URL,
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: CONTACT_PHONE,
       contactType: "customer service",
       areaServed: "US",
       availableLanguage: "English"
@@ -41,7 +39,6 @@ export function getLocalBusinessSchema() {
     image: LOGO_URL,
     "@id": PRIMARY_DOMAIN,
     url: PRIMARY_DOMAIN,
-    telephone: CONTACT_PHONE,
     address: {
       "@type": "PostalAddress",
       addressCountry: "US"

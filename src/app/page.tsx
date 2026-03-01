@@ -9,7 +9,7 @@ export const metadata = {
   description: ROUTE_DESCRIPTIONS.home,
 };
 
-export default function Home() {
+export default async function Home() {
   const topServices = [
     {
       title: 'Custom Website Development',
@@ -42,91 +42,88 @@ export default function Home() {
 
   return (
     <div className="page-container">
-      <section className="home-hero">
-        <h1>Welcome to HH6 Influential</h1>
-        <p className="lead">
-          At Household Six Influential, we provide exceptional services to enhance
-          your online presence through social media management, website
-          development, and graphic design.
-        </p>
-        <div className="hero-actions">
-          <a href="tel:+16788423469" className="phone-button">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            (678) 842-3469
-          </a>
-          <Link href="/portfolio" className="cta-button">
-            Check Out Our Portfolio
-          </Link>
-        </div>
-      </section>
+        <section className="home-hero">
+          <h1>Welcome to HH6 Influential</h1>
+          <p className="lead">
+            At Household Six Influential, we provide exceptional services to enhance
+            your online presence through social media management, website
+            development, and graphic design.
+          </p>
+          <div className="hero-actions">
+            <Link href="/contact" className="phone-button">
+              Start a Project
+            </Link>
+            <Link href="/portfolio" className="cta-button">
+              Check Out Our Portfolio
+            </Link>
+          </div>
+        </section>
 
-      <section className="home-services">
-        <h2>Our Top Services</h2>
-        <p className="section-description">
-          Our team specializes in a range of services designed to meet your
-          business needs:
-        </p>
-        <div className="services-grid">
-          {topServices.map((service, index) => (
-            <div key={index} className="service-card">
-              <div className="service-icon">
-                {service.icon}
+        <section className="home-services">
+          <h2>Our Top Services</h2>
+          <p className="section-description">
+            Our team specializes in a range of services designed to meet your
+            business needs:
+          </p>
+          <div className="services-grid">
+            {topServices.map((service, index) => (
+              <div key={index} className="service-card">
+                <div className="service-icon">
+                  {service.icon}
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
               </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
+            ))}
+          </div>
+          <div className="services-cta">
+            <div className="cta-content">
+              <h3>Ready to Transform Your Digital Presence?</h3>
+              <p>
+                Discover how our comprehensive suite of services can help your business thrive in the digital landscape. From custom web solutions to engaging social media strategies, we&apos;re here to help you succeed.
+              </p>
             </div>
-          ))}
-        </div>
-        <div className="services-cta">
-          <div className="cta-content">
-            <h3>Ready to Transform Your Digital Presence?</h3>
-            <p>
-              Discover how our comprehensive suite of services can help your business thrive in the digital landscape. From custom web solutions to engaging social media strategies, we&apos;re here to help you succeed.
-            </p>
+            <Link href="/services" className="cta-button">
+              Explore Our Services
+            </Link>
           </div>
-          <Link href="/services" className="cta-button">
-            Explore Our Services
-          </Link>
-        </div>
-      </section>
+        </section>
 
-      <section className="pledge-section">
-        <h2>Our Pledge</h2>
-        <p>
-          As a veteran-owned company, we are committed to serving both civilians
-          and service members with respect, integrity, and dedication. We meet
-          our clients where they are, understanding their unique needs and
-          delivering solutions that align with their vision.
-        </p>
-      </section>
+        <section className="pledge-section">
+          <h2>Our Pledge</h2>
+          <p>
+            As a veteran-owned company, we are committed to serving both civilians
+            and service members with respect, integrity, and dedication. We meet
+            our clients where they are, understanding their unique needs and
+            delivering solutions that align with their vision.
+          </p>
+        </section>
 
-      <section className="military-discount-section">
-        <div className="discount-container">
-          <div className="discount-image">
-            <Image 
-              src="/assets/images/militarydiscount.png" 
-              alt="Military Discount" 
-              width={400}
-              height={300}
-              priority
-            />
-          </div>
-          <div className="discount-content">
-            <h2>10% Military Discount</h2>
-            <p>
-              At HH6 Influential, we&apos;re proud to give back to our military community with an exclusive 10% discount on all our services. Whether you need a professional website, social media management, or a complete digital strategy, we&apos;re here to help your business thrive.
-            </p>
-            <p className="discount-note">Offer valid through October 1st, 2025</p>
-            <div className="discount-cta">
-              <Link href="/contact" className="cta-button">
-                Claim Your Discount
-              </Link>
+        <section className="military-discount-section">
+          <div className="discount-container">
+            <div className="discount-image">
+              <Image
+                src="/assets/images/militarydiscount.png"
+                alt="Military Discount"
+                width={400}
+                height={300}
+                priority
+              />
+            </div>
+            <div className="discount-content">
+              <h2>10% Military Discount</h2>
+              <p>
+                At HH6 Influential, we&apos;re proud to give back to our military community with an exclusive 10% discount on all our services. Whether you need a professional website, social media management, or a complete digital strategy, we&apos;re here to help your business thrive.
+              </p>
+              <p className="discount-note">Offer valid through July, 2026</p>
+              <div className="discount-cta">
+                <Link href="/contact" className="cta-button">
+                  Claim Your Discount
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
     </div>
   );
 }

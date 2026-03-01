@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Script from 'next/script';
 import { notFound } from 'next/navigation';
+import { cache } from 'react';
 import { articleSchema, ROUTE_TITLE_RULES } from '@/lib/seo';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -29,24 +30,28 @@ function toCdn(url) {
   if (!url) return url;
   if (/^https?:/i.test(url)) return url;
   
-  // If it's a media path, use the API proxy (same as blog post content)
-  if (url.startsWith('/media/')) {
-    const API_BASE = process.env.NEXT_PUBLIC_BACKEND_API_URL?.replace(/\/$/, "") || 'http://localhost:8080';
-    return `${API_BASE}/cdn${url}`;
-  }
-  
-  // Otherwise use CDN directly
+  // Use CDN directly for all URLs with cache-busting
   const CDN_BASE = process.env.NEXT_PUBLIC_BLOG_CDN_URL?.replace(/\/$/, "");
-  return `${CDN_BASE}${url.startsWith('/') ? url : `/${url}`}`;
+  const baseUrl = `${CDN_BASE}${url.startsWith('/') ? url : `/${url}`}`;
+  // Add cache-busting parameter for media files
+  if (url.includes('/media/')) {
+    return `${baseUrl}?v=${Date.now()}`;
+  }
+  return baseUrl;
 }
 
-async function getPost(slug) {
+const isDevelopment = process.env.NODE_ENV !== 'production';
+const logDebug = (...args) => {
+  if (isDevelopment) console.log(...args);
+};
+
+const getPost = cache(async (slug) => {
   const CDN_BASE = process.env.NEXT_PUBLIC_BLOG_CDN_URL?.replace(/\/$/, "");
   const API_BASE = process.env.NEXT_PUBLIC_BACKEND_API_URL?.replace(/\/$/, "") || 'http://localhost:8080';
   
-  console.log(`Fetching post: ${slug}`);
-  console.log(`CDN_BASE: ${CDN_BASE}`);
-  console.log(`API_BASE: ${API_BASE}`);
+  logDebug(`Fetching post: ${slug}`);
+  logDebug(`CDN_BASE: ${CDN_BASE}`);
+  logDebug(`API_BASE: ${API_BASE}`);
   
   try {
     // First, get the index to find the correct post path (same as React SPA)
@@ -54,45 +59,45 @@ async function getPost(slug) {
     try {
       if (CDN_BASE) {
         const idxRes = await fetch(`${CDN_BASE}/index.json`, { 
-          next: { revalidate: 300 }
+          cache: 'no-store'
         });
         if (idxRes.ok) {
           index = await idxRes.json();
         }
       }
     } catch (e) {
-      console.log('CDN index failed, trying API');
+      logDebug('CDN index failed, trying API');
     }
     
     // Fallback to API for index
     if (!index && API_BASE) {
       try {
         const idxRes2 = await fetch(`${API_BASE}/cdn/index.json`, { 
-          next: { revalidate: 300 }
+          cache: 'no-store'
         });
         if (idxRes2.ok) {
           index = await idxRes2.json();
         }
       } catch (e) {
-        console.log('API index failed');
+        logDebug('API index failed');
       }
     }
     
     if (!index) {
-      console.log('Could not load index.json');
+      logDebug('Could not load index.json');
       return null;
     }
     
     // Find the post entry in the index
     const entry = index.find((i) => i.slug === slug);
     if (!entry) {
-      console.log('Post not found in index:', slug);
+      logDebug('Post not found in index:', slug);
       return null;
     }
     
     // Get the post directory path (same logic as React SPA)
     const postDir = entry?.path?.replace(/^\/cdn\//, '/')?.replace(/\/?$/, '/') || `/posts/2025/01/${slug}/`;
-    console.log(`Post directory: ${postDir}`);
+    logDebug(`Post directory: ${postDir}`);
     
     // Fetch post metadata
     let metaRes;
@@ -103,7 +108,7 @@ async function getPost(slug) {
         });
       }
     } catch (e) {
-      console.log('CDN post.json failed');
+      logDebug('CDN post.json failed');
     }
     
     if ((!metaRes || !metaRes.ok) && API_BASE) {
@@ -113,12 +118,12 @@ async function getPost(slug) {
     }
     
     if (!metaRes || !metaRes.ok) {
-      console.log(`Failed to load post.json: ${metaRes?.status || 'no response'}`);
+      logDebug(`Failed to load post.json: ${metaRes?.status || 'no response'}`);
       return null;
     }
     
     const metaJson = await metaRes.json();
-    console.log('Post metadata loaded:', metaJson.title);
+    logDebug('Post metadata loaded:', metaJson.title);
     
     // Fetch post body content
     let bodyRes;
@@ -129,7 +134,7 @@ async function getPost(slug) {
         });
       }
     } catch (e) {
-      console.log('CDN body.md failed');
+      logDebug('CDN body.md failed');
     }
     
     if ((!bodyRes || !bodyRes.ok) && API_BASE) {
@@ -141,9 +146,9 @@ async function getPost(slug) {
     if (bodyRes && bodyRes.ok) {
       const bodyText = await bodyRes.text();
       metaJson.content = bodyText; // Add content to metadata
-      console.log('Post body loaded, length:', bodyText.length);
+      logDebug('Post body loaded, length:', bodyText.length);
     } else {
-      console.log(`Failed to load body.md: ${bodyRes?.status || 'no response'}`);
+      logDebug(`Failed to load body.md: ${bodyRes?.status || 'no response'}`);
       metaJson.content = ''; // Set empty content if body fails
     }
     
@@ -152,7 +157,7 @@ async function getPost(slug) {
     console.error('Error fetching post:', error);
     return null;
   }
-}
+});
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

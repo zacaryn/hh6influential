@@ -4,7 +4,6 @@ export const PRIMARY_DOMAIN = "https://hh6influential.com";
 export const BRAND_TAGLINE = "Transform Your Digital Presence";
 export const LOGO_URL = "https://hh6influential.com/assets/images/hh6logo.png";
 export const CONTACT_EMAIL = "contact@hh6influential.com";
-export const CONTACT_PHONE = "(678) 842-3469";
 
 export const SAMEAS_PROFILES = [
   "https://www.linkedin.com/company/hh6-influential",

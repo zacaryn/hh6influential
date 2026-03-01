@@ -7,11 +7,13 @@ import React, { useState } from 'react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    fullName: '',
+    contactEmail: '',
     phone: '',
-    message: ''
+    inquiryText: '',
+    company: '' // honeypot field
   });
+  const [formStartTime] = useState(Date.now());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
@@ -38,6 +40,7 @@ export default function Contact() {
         },
         body: JSON.stringify({
           ...formData,
+          _formStartTime: formStartTime,
           source: 'contact-page'
         })
       });
@@ -46,7 +49,7 @@ export default function Contact() {
 
       if (response.ok) {
         setSubmitStatus({ type: 'success', message: result.message });
-        setFormData({ name: '', email: '', phone: '', message: '' });
+        setFormData({ fullName: '', contactEmail: '', phone: '', inquiryText: '', company: '' });
         
         // Track form submission in GA4 with enhanced parameters
         if (typeof window !== 'undefined' && window.gtag) {
@@ -120,14 +123,31 @@ export default function Contact() {
             )}
 
             <form onSubmit={handleSubmit} className="contact-form" data-form-name="contact-form">
+              {/* Honeypot field - hidden from users */}
+              <input
+                type="text"
+                name="company"
+                value={formData.company}
+                onChange={handleInputChange}
+                tabIndex="-1"
+                autoComplete="off"
+                style={{
+                  position: 'absolute',
+                  left: '-9999px',
+                  width: '1px',
+                  height: '1px'
+                }}
+                aria-hidden="true"
+              />
+              
               <div className="form-row">
                 <div className="form-group">
-                  <label htmlFor="name">Full Name *</label>
+                  <label htmlFor="fullName">Full Name *</label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
+                    id="fullName"
+                    name="fullName"
+                    value={formData.fullName}
                     onChange={handleInputChange}
                     required
                     className="form-input"
@@ -135,12 +155,12 @@ export default function Contact() {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="email">Email Address *</label>
+                  <label htmlFor="contactEmail">Email Address *</label>
                   <input
                     type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
+                    id="contactEmail"
+                    name="contactEmail"
+                    value={formData.contactEmail}
                     onChange={handleInputChange}
                     required
                     className="form-input"
@@ -163,11 +183,11 @@ export default function Contact() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="message">Message *</label>
+                <label htmlFor="inquiryText">Message *</label>
                 <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
+                  id="inquiryText"
+                  name="inquiryText"
+                  value={formData.inquiryText}
                   onChange={handleInputChange}
                   required
                   className="form-input form-textarea"
@@ -198,19 +218,6 @@ export default function Contact() {
               <p>For business inquiries and project discussions</p>
               <a href="mailto:contact@hh6influential.com?subject=Business Inquiry" className="contact-link">
                 contact@hh6influential.com
-              </a>
-            </div>
-
-            <div className="contact-info-card">
-              <div className="contact-icon">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <h3>Call Us</h3>
-              <p>Speak directly with our team</p>
-              <a href="tel:+16788423469" className="contact-link">
-                (678) 842-3469
               </a>
             </div>
 

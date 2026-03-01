@@ -6,7 +6,7 @@
   padding: 40px 40px;
   background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
   color: white;
-  border-radius: 12px;
+  border-radius: 0;
   margin-bottom: 40px;
   box-shadow: 0 8px 30px rgba(0, 42, 110, 0.2);
   max-width: 100%;
@@ -59,10 +59,10 @@
   width: 50px;
   height: 50px;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  border-radius: 0;
   color: white;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: background-color var(--duration) var(--ease), transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease), border-color var(--duration) var(--ease), color var(--duration) var(--ease);
   border: 2px solid rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -116,18 +116,18 @@
 }
 
 .contact-card {
-  background: white;
+  background: var(--surface-primary);
   padding: 30px 25px;
-  border-radius: 12px;
+  border-radius: 0;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-card);
   border: 1px solid rgba(0, 42, 110, 0.08);
-  transition: all 0.3s ease;
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease), border-color var(--duration) var(--ease);
 }
 
 .contact-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(var(--lift-md));
+  box-shadow: var(--shadow-card-hover);
   border-color: rgba(0, 42, 110, 0.12);
 }
 
@@ -139,7 +139,7 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #002a6e, #004db3);
-  border-radius: 12px;
+  border-radius: 0;
   color: white;
   box-shadow: 0 4px 15px rgba(0, 42, 110, 0.25);
 }
@@ -151,14 +151,14 @@
 
 .contact-card h3 {
   color: #002a6e;
-  font-size: 1.5rem;
+  font-size: var(--heading-3);
   margin-bottom: 10px;
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 42, 110, 0.1);
 }
 
 .contact-card p {
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 15px;
   font-size: 1rem;
   line-height: 1.5;
@@ -169,13 +169,13 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
-  transition: all 0.3s ease;
+  transition: color var(--duration) var(--ease), transform var(--duration) var(--ease);
   display: inline-block;
 }
 
 .contact-link:hover {
   color: #004db3;
-  transform: translateY(-1px);
+  transform: translateY(var(--lift-sm));
 }
 
 /* Call to Action Section */
@@ -184,7 +184,7 @@
   padding: 60px 40px;
   background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
   color: white;
-  border-radius: 12px;
+  border-radius: 0;
   box-shadow: 0 8px 30px rgba(0, 42, 110, 0.2);
   max-width: 100%;
   overflow: hidden;
@@ -192,7 +192,7 @@
 
 .contact-cta h2 {
   color: white;
-  font-size: 2.2rem;
+  font-size: var(--heading-2);
   margin-bottom: 1rem;
   font-weight: 700;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -201,7 +201,7 @@
 .contact-cta p {
   color: white;
   opacity: 0.95;
-  font-size: 1.1rem;
+  font-size: var(--text-base);
   margin-bottom: 2rem;
   max-width: 600px;
   margin-left: auto;
@@ -230,12 +230,12 @@
   padding: 15px 30px;
   font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 0;
   text-decoration: none;
   white-space: normal;
   text-align: center;
   min-width: 160px;
-  transition: all 0.3s ease;
+  transition: background-color var(--duration) var(--ease), transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   border: none;
   cursor: pointer;
@@ -250,7 +250,7 @@
 /* Contact Form Section */
 .contact-form-section {
   padding: 4rem 0;
-  background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+  background: linear-gradient(135deg, var(--surface-page) 0%, #f0f0f0 100%);
   max-width: 100%;
   overflow: hidden;
 }
@@ -268,11 +268,11 @@
 }
 
 .contact-form-content {
-  background: white;
+  background: var(--surface-primary);
   padding: 3rem;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  border-radius: 0;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-subtle);
   max-width: 100%;
   overflow: hidden;
 }
@@ -283,15 +283,15 @@
 }
 
 .contact-form-header h2 {
-  font-size: 2.5rem;
+  font-size: var(--heading-1);
   font-weight: 700;
   color: #1a202c;
   margin-bottom: 1rem;
 }
 
 .contact-form-header p {
-  font-size: 1.1rem;
-  color: #64748b;
+  font-size: var(--text-base);
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 
@@ -315,17 +315,17 @@
 
 .form-group label {
   font-weight: 600;
-  color: #374151;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
 }
 
 .form-input {
   padding: 1rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
+  border: 2px solid var(--border-subtle);
+  border-radius: 0;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: border-color var(--duration) var(--ease), background-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
   background: #f8fafc;
   width: 100%;
   box-sizing: border-box;
@@ -333,8 +333,8 @@
 
 .form-input:focus {
   outline: none;
-  border-color: #002a6e;
-  background: white;
+  border-color: var(--primary-color);
+  background: var(--surface-primary);
   box-shadow: 0 0 0 3px rgba(0, 42, 110, 0.1);
 }
 
@@ -351,11 +351,11 @@
   color: white;
   padding: 1rem 2rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 0;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
   margin-top: 1rem;
 }
 
@@ -373,7 +373,7 @@
 /* Alert Styles */
 .alert {
   padding: 1rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 0;
   margin-bottom: 2rem;
   font-weight: 500;
 }
@@ -398,18 +398,18 @@
 }
 
 .contact-info-card {
-  background: white;
+  background: var(--surface-primary);
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e2e8f0;
+  border-radius: 0;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border-subtle);
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
 }
 
 .contact-info-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(var(--lift-md));
+  box-shadow: var(--shadow-card-hover);
 }
 
 .contact-info-card .contact-icon {
@@ -417,7 +417,7 @@
   height: 60px;
   margin: 0 auto 1.5rem;
   background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
-  border-radius: 50%;
+  border-radius: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -430,14 +430,14 @@
 }
 
 .contact-info-card h3 {
-  font-size: 1.25rem;
+  font-size: var(--heading-3);
   font-weight: 600;
   color: #1a202c;
   margin-bottom: 0.75rem;
 }
 
 .contact-info-card p {
-  color: #64748b;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
   line-height: 1.5;
 }
@@ -622,419 +622,6 @@
     padding: 12px 20px;
     font-size: 0.95rem;
     max-width: 250px;
-  }
-}
-
-/* Speech Bubble Styles */
-.speech-bubble {
-  position: fixed;
-  bottom: 2rem;
-  right: 8rem;
-  z-index: 999;
-  animation: speechBubbleSlideIn 0.5s ease-out;
-  pointer-events: auto;
-}
-
-.speech-bubble-content {
-  background: white;
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 8px 25px rgba(0, 42, 110, 0.15);
-  border: 2px solid #002a6e;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  max-width: 200px;
-}
-
-.speech-bubble-text {
-  color: #002a6e;
-  font-weight: 600;
-  font-size: 0.9rem;
-  line-height: 1.3;
-  margin: 0;
-}
-
-.speech-bubble-close {
-  background: none;
-  border: none;
-  color: #64748b;
-  cursor: pointer;
-  padding: 0.25rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.speech-bubble-close:hover {
-  background: #f1f5f9;
-  color: #1a202c;
-}
-
-.speech-bubble-arrow {
-  position: absolute;
-  top: 50%;
-  right: -8px;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 8px solid #002a6e;
-}
-
-
-@keyframes speechBubbleSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Quick Message Widget Styles */
-.quick-message-widget {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 1000;
-  transition: all 0.3s ease;
-}
-
-.quick-message-toggle {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
-  border: none;
-  border-radius: 50%;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 8px 25px rgba(0, 42, 110, 0.3);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-
-.quick-message-toggle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 35px rgba(0, 42, 110, 0.4);
-}
-
-.quick-message-toggle svg {
-  width: 24px;
-  height: 24px;
-}
-
-.quick-message-modal {
-  position: fixed;
-  bottom: 5rem;
-  right: 2rem;
-  width: 400px;
-  max-width: calc(100vw - 4rem);
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-  border: 1px solid #e2e8f0;
-  z-index: 1001;
-  animation: slideInUp 0.3s ease;
-  max-height: calc(100vh - 8rem);
-  overflow-y: auto;
-}
-
-.quick-message-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.quick-message-header h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1a202c;
-  margin: 0;
-}
-
-.quick-message-close {
-  background: none;
-  border: none;
-  color: #64748b;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.quick-message-close:hover {
-  background: #f1f5f9;
-  color: #1a202c;
-}
-
-.quick-message-form {
-  padding: 1.5rem;
-}
-
-.quick-message-form .form-group {
-  margin-bottom: 1rem;
-}
-
-.quick-message-form .form-input {
-  padding: 0.75rem;
-  font-size: 0.95rem;
-}
-
-.quick-message-form .form-textarea {
-  min-height: 100px;
-}
-
-.quick-message-form .submit-button {
-  width: 100%;
-  padding: 0.875rem;
-  font-size: 1rem;
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
-  .speech-bubble {
-    bottom: 1rem;
-    right: 6rem;
-    max-width: 250px;
-  }
-  
-  .speech-bubble-content {
-    max-width: none;
-    padding: 0.875rem 1rem;
-  }
-  
-  .speech-bubble-text {
-    font-size: 0.85rem;
-  }
-  
-  .speech-bubble-arrow {
-    right: -8px;
-  }
-  
-  .quick-message-widget {
-    bottom: 1rem;
-    right: 1rem;
-  }
-  
-  .quick-message-modal {
-    bottom: 4rem;
-    left: 1rem;
-    width: auto;
-    max-width: none;
-  }
-  
-  .quick-message-toggle {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .quick-message-toggle svg {
-    width: 20px;
-    height: 20px;
-  }
-  
-  .quick-message-header {
-    padding: 1rem;
-  }
-  
-  .quick-message-header h3 {
-    font-size: 1.1rem;
-  }
-  
-  .quick-message-form {
-    padding: 1rem;
-  }
-  
-  .quick-message-form .form-input {
-    padding: 0.875rem;
-    font-size: 16px;
-  }
-  
-  .quick-message-form .form-textarea {
-    min-height: 80px;
-    font-size: 16px;
-  }
-  
-  .quick-message-form .submit-button {
-    padding: 1rem;
-    font-size: 1rem;
-    min-height: 44px;
-  }
-}
-
-@media (max-width: 480px) {
-  .speech-bubble {
-    bottom: 0.75rem;
-    right: 5rem;
-    max-width: 200px;
-  }
-  
-  .speech-bubble-content {
-    padding: 0.75rem 0.875rem;
-  }
-  
-  .speech-bubble-text {
-    font-size: 0.8rem;
-  }
-  
-  .speech-bubble-arrow {
-    right: -8px;
-  }
-  
-  .quick-message-widget {
-    bottom: 0.75rem;
-    right: 0.75rem;
-  }
-  
-  .quick-message-modal {
-    bottom: 3.5rem;
-    right: 0.75rem;
-    left: 0.75rem;
-  }
-  
-  .quick-message-toggle {
-    width: 45px;
-    height: 45px;
-  }
-  
-  .quick-message-toggle svg {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .quick-message-header {
-    padding: 0.875rem;
-  }
-  
-  .quick-message-header h3 {
-    font-size: 1rem;
-  }
-  
-  .quick-message-form {
-    padding: 0.875rem;
-  }
-  
-  .quick-message-form .form-group {
-    margin-bottom: 0.75rem;
-  }
-  
-  .quick-message-form .form-input {
-    padding: 0.75rem;
-  }
-  
-  .quick-message-form .form-textarea {
-    min-height: 70px;
-  }
-  
-  .quick-message-form .submit-button {
-    padding: 0.875rem;
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .quick-message-widget {
-    bottom: 0.5rem;
-    right: 0.5rem;
-  }
-  
-  .quick-message-modal {
-    bottom: 3rem;
-    right: 0.5rem;
-    left: 0.5rem;
-  }
-  
-  .quick-message-toggle {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .quick-message-toggle svg {
-    width: 16px;
-    height: 16px;
-  }
-  
-  .quick-message-header {
-    padding: 0.75rem;
-  }
-  
-  .quick-message-form {
-    padding: 0.75rem;
-  }
-  
-  .quick-message-form .form-input {
-    padding: 0.625rem;
-  }
-  
-  .quick-message-form .form-textarea {
-    min-height: 60px;
-  }
-  
-  .quick-message-form .submit-button {
-    padding: 0.75rem;
-    font-size: 0.9rem;
-  }
-}
-
-/* Landscape orientation on mobile */
-@media (max-height: 500px) and (orientation: landscape) {
-  .quick-message-modal {
-    bottom: 2rem;
-    max-height: calc(100vh - 4rem);
-  }
-  
-  .quick-message-form .form-textarea {
-    min-height: 50px;
-  }
-  
-  .quick-message-form .form-group {
-    margin-bottom: 0.5rem;
-  }
-  
-  .quick-message-header {
-    padding: 0.75rem;
-  }
-  
-  .quick-message-form {
-    padding: 0.75rem;
-  }
-}
-
-/* Ensure widget doesn't interfere with mobile navigation bars */
-@media (max-width: 768px) {
-  .quick-message-widget {
-    bottom: max(1rem, env(safe-area-inset-bottom) + 0.5rem);
-    right: max(1rem, env(safe-area-inset-right) + 0.5rem);
-  }
-  
-  .quick-message-modal {
-    bottom: max(4rem, env(safe-area-inset-bottom) + 3rem);
-    right: max(1rem, env(safe-area-inset-right) + 0.5rem);
-    left: max(1rem, env(safe-area-inset-left) + 0.5rem);
   }
 }
 

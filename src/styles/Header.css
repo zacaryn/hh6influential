@@ -2,7 +2,7 @@
 .header {
     background-color: #002a6e;
     color: white;
-    padding: 15px 0;
+    padding: 8px 0;
     position: fixed;
     top: 0;
     width: 100%;
@@ -16,6 +16,7 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    min-height: 74px;
     padding: 0 20px;
     justify-content: center;
     gap: 0;
@@ -25,15 +26,15 @@
 .logo-container {
     display: flex;
     align-items: center;
-    padding-right: 20px;
+    padding-right: 16px;
     flex-shrink: 0;
     margin-right: 0;
 }
 
 .logo {
-    height: 60px;
+    height: 80px;
     width: auto;
-    transition: transform 0.3s ease;
+    transition: transform 220ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .logo:hover {
@@ -53,6 +54,7 @@
 .navbar {
     display: flex;
     align-items: center;
+    min-height: 44px;
     position: relative;
 }
 
@@ -60,8 +62,12 @@
     display: none;
     background: none;
     border: none;
-    padding: 10px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }
 
 .hamburger,
@@ -71,10 +77,10 @@
     display: block;
     width: 24px;
     height: 2px;
-    background: white;
+    background: var(--surface-primary);
     position: absolute;
     left: 0;
-    transition: all 0.3s ease;
+    transition: transform 220ms cubic-bezier(0.2, 0, 0, 1), top 220ms cubic-bezier(0.2, 0, 0, 1), bottom 220ms cubic-bezier(0.2, 0, 0, 1), background-color 220ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .hamburger {
@@ -110,7 +116,7 @@
     gap: 30px;
     margin: 0;
     padding: 0;
-    transition: all 0.3s ease-in-out;
+    transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1), transform 240ms cubic-bezier(0.2, 0, 0, 1), max-height 240ms cubic-bezier(0.2, 0, 0, 1);
     align-items: center;
 }
 
@@ -119,9 +125,12 @@
     color: white;
     font-weight: 500;
     font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
     padding: 8px 12px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    border-radius: 0;
+    transition: background-color 220ms cubic-bezier(0.2, 0, 0, 1), color 220ms cubic-bezier(0.2, 0, 0, 1), transform 220ms cubic-bezier(0.2, 0, 0, 1);
 }
 
 .nav-links a:hover,
@@ -148,9 +157,12 @@
     color: rgba(255, 255, 255, 0.9) !important;
     font-weight: 600;
     font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
     padding: 8px 16px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
+    border-radius: 0;
+    transition: background-color 220ms cubic-bezier(0.2, 0, 0, 1), color 220ms cubic-bezier(0.2, 0, 0, 1), border-color 220ms cubic-bezier(0.2, 0, 0, 1), transform 220ms cubic-bezier(0.2, 0, 0, 1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     background: rgba(255, 255, 255, 0.05);
 }
@@ -182,7 +194,7 @@
         max-height: 0;
         overflow: hidden;
         opacity: 0;
-        transition: all 0.3s ease-in-out;
+        transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1), max-height 240ms cubic-bezier(0.2, 0, 0, 1), padding 240ms cubic-bezier(0.2, 0, 0, 1);
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         gap: 0;
         z-index: 999;
@@ -211,7 +223,7 @@
         text-align: center;
         opacity: 0;
         transform: translateY(-10px);
-        transition: all 0.3s ease-in-out;
+        transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1), transform 240ms cubic-bezier(0.2, 0, 0, 1);
     }
 
     .nav-links.show li {
@@ -237,18 +249,8 @@
         background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .navbar-brand img {
-        height: 50px; /* Slightly smaller on mobile but still prominent */
+    .logo {
+        height: 66px; /* Slightly larger while keeping mobile alignment */
     }
-}
-
-.navbar-brand img {
-    height: 60px; /* Increased from default size */
-    width: auto;
-    transition: transform 0.3s ease;
-}
-
-.navbar-brand:hover img {
-    transform: scale(1.05);
 }
   

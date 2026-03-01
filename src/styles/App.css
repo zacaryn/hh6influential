@@ -3,8 +3,8 @@
   position: relative;
   text-align: center;
   padding: 60px 40px;
-  border-radius: 15px;
-  margin-bottom: 40px;
+  border-radius: 0;
+  margin-bottom: var(--space-10);
   overflow: hidden;
 }
 
@@ -52,14 +52,14 @@
 
 .page-hero .lead {
   color: white;
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.6;
   opacity: 0.95;
 }
 
-@media screen {
+@media (max-width: 768px) {
   .page-hero {
     padding: 40px 20px;
   }
@@ -67,4 +67,4 @@
   .page-hero h1 {
     font-size: 2rem;
   }
-} 
+}

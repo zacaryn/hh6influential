@@ -1,0 +1,33 @@
+name: Security Scans
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Gitleaks scan
+        uses: gitleaks/gitleaks-action@v2
+
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Run high-severity audit
+        run: npm run security:audit

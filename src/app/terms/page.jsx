@@ -78,8 +78,7 @@ export default function Terms() {
             <h3>Contact</h3>
             <p className="contact-info">
               Questions about these terms? Reach out:<br />
-              <strong>Email:</strong> <a href="mailto:contact@hh6influential.com">contact@hh6influential.com</a><br />
-              <strong>Phone:</strong> <a href="tel:+16788423469">(678) 842-3469</a>
+              <strong>Email:</strong> <a href="mailto:contact@hh6influential.com">contact@hh6influential.com</a>
             </p>
           </li>
         </ol>

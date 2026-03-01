@@ -32,7 +32,7 @@ async function getPosts() {
     // Try CDN first
     if (CDN_BASE) {
       const res = await fetch(`${CDN_BASE}/index.json`, { 
-        next: { revalidate: 300 }
+        cache: 'no-store'
       });
       if (res.ok) {
         const data = await res.json();
@@ -42,7 +42,7 @@ async function getPosts() {
     
     // Fallback to API (server.js proxy)
     const res2 = await fetch(`${API_BASE}/cdn/index.json`, { 
-      next: { revalidate: 300 }
+      cache: 'no-store'
     });
     if (res2.ok) {
       const data2 = await res2.json();
@@ -105,6 +105,50 @@ export default async function BlogIndexPage() {
   );
   
   const allTags = [...new Set(postsWithContent.flatMap(p => p.tags || []))].sort();
+  const sidebarContent = (
+    <>
+      <div className="sidebar-section">
+        <h3>Categories</h3>
+        {allTags.length > 0 ? (
+          <div className="tag-cloud">
+            {allTags.map(tag => (
+              <Link key={tag} href={`/blog?tag=${tag}`} className="tag-chip">
+                {tag}
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <p style={{ color: '#999', fontSize: '0.9rem' }}>No tags yet</p>
+        )}
+      </div>
+
+      <div className="sidebar-section">
+        <h3>Recent Posts</h3>
+        {postsWithContent.length > 0 ? (
+          <ul className="recent-posts">
+            {postsWithContent.slice(0, 5).map(post => (
+              <li key={post.slug}>
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                <div className="post-date">{new Date(post.publishedAt).toLocaleDateString()}</div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p style={{ color: '#999', fontSize: '0.9rem' }}>No posts yet</p>
+        )}
+      </div>
+
+      <div className="sidebar-section">
+        <h3>Get Updates</h3>
+        <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '16px' }}>
+          Stay informed about new posts and digital marketing tips.
+        </p>
+        <Link href="/contact" className="blog-cta sidebar-cta">
+          Contact Us
+        </Link>
+      </div>
+    </>
+  );
 
   return (
     <>
@@ -146,12 +190,10 @@ export default async function BlogIndexPage() {
                     if (post.coverImage) {
                       if (post.coverImage.startsWith("http")) {
                         imageUrl = post.coverImage;
-                      } else if (post.coverImage.startsWith("/media/")) {
-                        // Media paths go through API proxy
-                        imageUrl = `${process.env.NEXT_PUBLIC_BACKEND_API_URL || 'http://localhost:8080'}/cdn${post.coverImage}`;
                       } else {
-                        // Other paths go directly to CDN
-                        imageUrl = `${CDN_BASE}${post.coverImage}`;
+                        // All paths go directly to CDN with cache-busting for media files
+                        const baseUrl = `${CDN_BASE}${post.coverImage}`;
+                        imageUrl = post.coverImage.includes('/media/') ? `${baseUrl}?v=${Date.now()}` : baseUrl;
                       }
                     }
                     
@@ -194,49 +236,17 @@ export default async function BlogIndexPage() {
             )}
           </main>
 
-          <aside className="blog-sidebar">
-            <div className="sidebar-section">
-              <h3>Categories</h3>
-              {allTags.length > 0 ? (
-                <div className="tag-cloud">
-                  {allTags.map(tag => (
-                    <Link key={tag} href={`/blog?tag=${tag}`} className="tag-chip">
-                      {tag}
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                <p style={{ color: '#999', fontSize: '0.9rem' }}>No tags yet</p>
-              )}
-            </div>
-
-            <div className="sidebar-section">
-              <h3>Recent Posts</h3>
-              {postsWithContent.length > 0 ? (
-                <ul className="recent-posts">
-                  {postsWithContent.slice(0, 5).map(post => (
-                    <li key={post.slug}>
-                      <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                      <div className="post-date">{new Date(post.publishedAt).toLocaleDateString()}</div>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p style={{ color: '#999', fontSize: '0.9rem' }}>No posts yet</p>
-              )}
-            </div>
-
-            <div className="sidebar-section">
-              <h3>Get Updates</h3>
-              <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '16px' }}>
-                Stay informed about new posts and digital marketing tips.
-              </p>
-              <Link href="/contact" className="blog-cta sidebar-cta">
-                Contact Us
-              </Link>
-            </div>
+          <aside className="blog-sidebar blog-sidebar-desktop">
+            {sidebarContent}
           </aside>
         </div>
+
+        <details className="blog-sidebar-mobile-drawer">
+          <summary>Open blog tools</summary>
+          <div className="blog-sidebar blog-sidebar-mobile-content">
+            {sidebarContent}
+          </div>
+        </details>
       </div>
     </>
   );

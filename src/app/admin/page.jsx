@@ -124,7 +124,7 @@ function AdminLogin() {
         <div className="admin-login-card">
           <div className="admin-header">
             <div className="admin-logo admin-logo-large admin-logo-centered">
-              <img src="/assets/icons/hh6logo.svg" alt="HH6 Logo" className="admin-logo-svg" />
+              <img src="/assets/images/hh6logoblue.png" alt="HH6 Logo" className="admin-logo-svg" />
             </div>
             <p>Secure admin dashboard access</p>
           </div>
@@ -188,7 +188,7 @@ function AdminLogin() {
       <div className="admin-login-card">
         <div className="admin-header">
           <div className="admin-logo admin-logo-large admin-logo-centered">
-            <img src="/assets/icons/hh6logo.svg" alt="HH6 Logo" className="admin-logo-svg" />
+            <img src="/assets/images/hh6logoblue.png" alt="HH6 Logo" className="admin-logo-svg" />
           </div>
           <p>Secure admin dashboard access</p>
         </div>

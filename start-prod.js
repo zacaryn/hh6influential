@@ -31,7 +31,7 @@ nextProcess.stderr.on('data', (data) => {
 
 // Wait a moment for Next.js to start, then start the API server
 setTimeout(() => {
-  console.log('\n🔧 Starting API server on port 8080...');
+  console.log('\n🔧 Starting API server on port 8001...');
   const serverProcess = spawn('npm', ['start'], {
     cwd: path.join(__dirname, 'server'),
     stdio: 'pipe',
@@ -59,6 +59,6 @@ setTimeout(() => {
 
 console.log('\n✅ Production setup started!');
 console.log('🌐 Frontend: http://localhost:3000 (proxied through Express)');
-console.log('🔧 API Server: http://localhost:8080');
+console.log('🔧 API Server: http://localhost:8001');
 console.log('🌍 Production URLs will be used when .env.production is present');
 console.log('📝 Press Ctrl+C to stop all services\n');

@@ -1,0 +1,338 @@
+/* ── Floating Action Hub ── */
+
+.fab-hub {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+/* ── FAB button ── */
+
+.fab-button {
+  width: 56px;
+  height: 56px;
+  border: none;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-elevated);
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+}
+
+.fab-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.fab-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 32px rgba(0, 42, 110, 0.35);
+}
+
+.fab-button--open {
+  background: var(--text-secondary);
+}
+
+/* ── Panel ── */
+
+.fab-panel {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  width: 340px;
+  max-height: calc(100vh - 120px);
+  background: var(--surface-primary);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  animation: fabSlideUp var(--duration) var(--ease);
+}
+
+@keyframes fabSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Panel header ── */
+
+.fab-panel-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-right: var(--space-2);
+  flex-shrink: 0;
+}
+
+.fab-tabs {
+  display: flex;
+  flex: 1;
+}
+
+.fab-tab {
+  flex: 1;
+  padding: var(--space-3) var(--space-4);
+  border: none;
+  background: none;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color var(--duration) var(--ease), border-color var(--duration) var(--ease);
+}
+
+.fab-tab:hover {
+  color: var(--text-primary);
+}
+
+.fab-tab--active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.fab-close {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--duration) var(--ease), background-color var(--duration) var(--ease);
+}
+
+.fab-close:hover {
+  color: var(--text-primary);
+  background: var(--surface-page);
+}
+
+/* ── Panel content ── */
+
+.fab-content {
+  padding: var(--space-4);
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* ── Message form ── */
+
+.fab-field {
+  margin-bottom: var(--space-3);
+}
+
+.fab-field label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-1);
+}
+
+.fab-input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-primary);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
+}
+
+.fab-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 42, 110, 0.1);
+}
+
+.fab-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.fab-submit {
+  width: 100%;
+  padding: var(--space-3);
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--duration) var(--ease), transform var(--duration) var(--ease);
+}
+
+.fab-submit:hover {
+  background: var(--primary-hover);
+}
+
+.fab-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fab-alert {
+  padding: var(--space-3);
+  margin-bottom: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.fab-alert--success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.fab-alert--error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* ── Blog posts ── */
+
+.fab-post {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  text-decoration: none;
+  border: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-2);
+  transition: border-color var(--duration) var(--ease), transform var(--duration) var(--ease);
+}
+
+.fab-post:hover {
+  border-color: var(--primary-color);
+  transform: translateY(var(--lift-sm));
+}
+
+.fab-post-thumb {
+  width: 72px;
+  height: 54px;
+  overflow: hidden;
+  background: var(--surface-page);
+}
+
+.fab-post-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fab-post-info h4 {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--primary-color);
+  line-height: 1.3;
+}
+
+.fab-post-info span {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.fab-view-all {
+  display: block;
+  text-align: center;
+  padding: var(--space-3);
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--primary-color);
+  text-decoration: none;
+  border: 1px solid var(--primary-color);
+  transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease);
+}
+
+.fab-view-all:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+.fab-empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  padding: var(--space-6) 0;
+  margin: 0;
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 768px) {
+  .fab-hub {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .fab-button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .fab-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .fab-panel {
+    width: calc(100vw - 2rem);
+    right: 0;
+    max-height: calc(100vh - 100px);
+  }
+}
+
+@media (max-width: 400px) {
+  .fab-hub {
+    bottom: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .fab-panel {
+    width: calc(100vw - 1.5rem);
+  }
+
+  .fab-button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .fab-button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .fab-input {
+    font-size: 16px;
+  }
+
+  .fab-textarea {
+    min-height: 60px;
+  }
+}
+
+@supports (bottom: env(safe-area-inset-bottom)) {
+  .fab-hub {
+    bottom: max(1rem, env(safe-area-inset-bottom) + 0.5rem);
+    right: max(1rem, env(safe-area-inset-right) + 0.5rem);
+  }
+}

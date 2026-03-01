@@ -3,8 +3,7 @@ import Script from 'next/script';
 import { BUSINESS_NAME, BRAND_TAGLINE, OPEN_GRAPH_DEFAULT_IMAGE, websiteSchema, orgSchema } from '@/lib/seo';
 import { Geist, Geist_Mono } from "next/font/google";
 import LayoutContent from '@/components/LayoutContent';
-import QuickMessageWidget from '@/components/QuickMessageWidget';
-import SpeechBubble from '@/components/SpeechBubble';
+import FloatingActionHub from '@/components/FloatingActionHub';
 import "./globals.css";
 import "../styles/App.css";
 import "../styles/Header.css";
@@ -142,8 +141,7 @@ export default function RootLayout({
         <LayoutContent>
           {children}
         </LayoutContent>
-        <QuickMessageWidget />
-        <SpeechBubble />
+        <FloatingActionHub />
       </body>
     </html>
   );

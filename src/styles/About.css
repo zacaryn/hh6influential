@@ -1,80 +1,9 @@
-/* General Container for Pages */
-.page-container {
-  padding: 60px 20px;
-  max-width: 1200px;
-  margin: 100px auto; /* Adjusted for fixed navbar */
-  background: #f9f9f9; /* Light background for clarity */
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Section Styling */
-.section {
-  padding: 40px 20px;
-  margin-bottom: 30px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-}
-
-.section h1,
-.section h2 {
-  color: #002a6e; /* Navy blue titles */
-  margin-bottom: 15px;
-}
-
-.section p {
-  font-size: 1.1rem;
-  color: #555;
-  line-height: 1.6;
-  margin-bottom: 15px;
-}
-
-/* List Items */
-.section ul {
-  padding-left: 20px;
-}
-
-.section ul li {
-  margin-bottom: 10px;
-  font-size: 1rem;
-  color: #333;
-}
-
-/* Call-to-Action Buttons */
-.cta-button {
-  display: inline-block;
-  margin: 20px 0;
-  padding: 10px 20px;
-  font-size: 1.1rem;
-  color: white;
-  background-color: #002a6e;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.cta-button:hover {
-  background-color: #0044a6; /* Slightly lighter navy on hover */
-}
-
-/* Image/Media Section Styling */
-.section-image {
-  width: 100%;
-  height: auto;
-  margin: 20px 0;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  object-fit: cover; /* Ensure the images maintain their aspect ratio */
-}
+/* About page - page-level overrides only (base styles in globals.css) */
 
 .image-row {
   display: flex;
   justify-content: space-between;
-  gap: 20px; /* Adjust the gap between images as needed */
+  gap: 20px;
 }
 
 .image-container {
@@ -86,19 +15,8 @@
 
 .image-container img {
   max-width: 100%;
-  max-height: 100%; /* Set a maximum height for the images */
-  object-fit: cover; /* Ensure the images maintain their aspect ratio */
-}
-
-.section ul {
-  padding-left: 120px; /* Adds spacing from the left */
-  text-align: left; /* Aligns the list to the left */
-}
-
-.section ul li {
-  margin-bottom: 10px;
-  font-size: 1rem;
-  color: #333;
+  max-height: 100%;
+  object-fit: cover;
 }
 
 .about-hero {
@@ -106,7 +24,7 @@
   padding: 60px 40px;
   background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
   color: white;
-  border-radius: 15px;
+  border-radius: 0;
   margin-bottom: 40px;
 }
 
@@ -128,14 +46,14 @@
 
 .team-section {
   padding: 40px;
-  background: white;
-  border-radius: 15px;
+  background: var(--surface-primary);
+  border-radius: 0;
   margin-bottom: 40px;
 }
 
 .team-section h2 {
   color: #002a6e;
-  font-size: 2.2rem;
+  font-size: var(--heading-2);
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -151,16 +69,16 @@
 }
 
 .team-card {
-  background: white;
-  border-radius: 8px;
+  background: var(--surface-primary);
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease), border-color var(--duration) var(--ease);
 }
 
 .team-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(var(--lift-md));
+  box-shadow: var(--shadow-card-hover);
 }
 
 .team-image-wrapper {
@@ -203,7 +121,7 @@
 
 .team-content h3 {
   color: #002a6e;
-  font-size: 1.2rem;
+  font-size: var(--heading-3);
   margin-bottom: 8px;
 }
 
@@ -218,22 +136,22 @@
   background: rgba(0, 42, 110, 0.1);
   color: #002a6e;
   padding: 3px 8px;
-  border-radius: 12px;
+  border-radius: 0;
   font-size: 0.7rem;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: background-color var(--duration) var(--ease), transform var(--duration) var(--ease);
 }
 
 .skill-tag:hover {
   background: rgba(0, 42, 110, 0.2);
-  transform: translateY(-1px);
+  transform: translateY(var(--lift-sm));
 }
 
 .team-content p {
-  color: #666;
+  color: var(--text-secondary);
   line-height: 1.5;
   margin: 8px 0 12px 0;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 .team-description {
@@ -266,7 +184,7 @@
   padding: 0;
   margin-top: 5px;
   text-decoration: underline;
-  transition: color 0.3s ease;
+  transition: color var(--duration) var(--ease);
 }
 
 .read-more-btn:hover {
@@ -282,51 +200,40 @@
   padding: 60px 40px;
   background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
   color: white;
-  border-radius: 15px;
+  border-radius: 0;
   margin-top: 60px;
 }
 
 .about-cta h2 {
   color: white;
-  font-size: 2.2rem;
+  font-size: var(--heading-2);
   margin-bottom: 1rem;
 }
 
 .about-cta p {
   color: white;
   opacity: 0.95;
-  font-size: 1.1rem;
+  font-size: var(--text-base);
   margin-bottom: 2rem;
 }
 
 .about-cta .cta-button {
-  display: inline-block !important;
-  background: white !important;
-  color: #002a6e !important;
-  padding: 15px 30px !important;
-  font-size: 1.1rem !important;
-  font-weight: 600 !important;
-  border-radius: 8px !important;
-  text-decoration: none !important;
-  transition: all 0.3s ease !important;
+  display: inline-block;
+  background: white;
+  color: var(--primary-color);
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 0;
+  text-decoration: none;
+  transition: background-color var(--duration) var(--ease), color var(--duration) var(--ease), transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
 }
 
 .about-cta .cta-button:hover {
-  background: rgba(255, 255, 255, 0.9) !important;
-  color: #002a6e !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Ensure these styles override any global styles */
-body .about-cta .cta-button {
-  background: white !important;
-  color: #002a6e !important;
-}
-
-body .about-cta .cta-button:hover {
-  background: rgba(255, 255, 255, 0.9) !important;
-  color: #002a6e !important;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--primary-color);
+  transform: translateY(var(--lift-md));
+  box-shadow: var(--shadow-card-hover);
 }
 
 @media (max-width: 768px) {
@@ -378,7 +285,7 @@ body .about-cta .cta-button:hover {
   gap: 12px;
   background: rgba(0, 119, 181, 0.1);
   padding: 4px;
-  border-radius: 25px;
+  border-radius: 0;
 }
 
 .linkedin-link {
@@ -391,8 +298,8 @@ body .about-cta .cta-button:hover {
   font-weight: 500;
   padding: 10px 16px;
   background: #0077b5;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border-radius: 0;
+  transition: background-color var(--duration) var(--ease), transform var(--duration) var(--ease), box-shadow var(--duration) var(--ease);
   box-shadow: 0 3px 10px rgba(0, 119, 181, 0.3);
 }
 
@@ -406,7 +313,7 @@ body .about-cta .cta-button:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: 0;
   font-size: 0.9rem;
 }
 

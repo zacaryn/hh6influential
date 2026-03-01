@@ -3,7 +3,7 @@
 }
 
 .terms .intro {
-  color: #4a5568;
+  color: var(--text-secondary);
   margin-bottom: 20px;
 }
 
@@ -17,22 +17,23 @@
 }
 
 .terms-list > li {
-  background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 10px;
+  background: var(--surface-primary);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--primary-color);
+  border-radius: 0;
   padding: 16px 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  box-shadow: var(--shadow-card);
 }
 
 .terms-list h3 {
   margin: 0 0 8px 0;
-  color: #002a6e;
+  color: var(--primary-color);
   font-size: 1.1rem;
 }
 
 .terms-list p {
   margin: 0;
-  color: #555;
+  color: var(--text-secondary);
   line-height: 1.7;
 }
 
@@ -48,6 +49,6 @@
 
 .sub-points li {
   margin: 6px 0;
-  color: #555;
+  color: var(--text-secondary);
 }
 

@@ -1,92 +1,11 @@
-/* General Container for Pages */
-.page-container {
-    padding: 40px 40px;
-    max-width: 1200px;
-    margin: 80px auto 20px !important; /* Reduced bottom margin to bring content closer to footer */
-    background: #f9f9f9; /* Light background for clarity */
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Section Styling */
-  .section {
-    padding: 40px 20px;
-    margin-bottom: 30px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-  }
-  
-  .section h1,
-  .section h2 {
-    color: #002a6e; /* Navy blue titles */
-    margin-bottom: 15px;
-  }
-  
-  .section p {
-    font-size: 1.1rem;
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 15px;
-  }
-  
-  /* List Items */
-  .section ul {
-    padding-left: 20px;
-  }
-  
-  .section ul li {
-    margin-bottom: 10px;
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  /* Call-to-Action Buttons */
-  .cta-button {
-    display: inline-block;
-    margin: 20px 0;
-    padding: 10px 20px;
-    font-size: 1.1rem;
-    color: white;
-    background-color: #002a6e;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .cta-button:hover {
-    background-color: #0044a6; /* Slightly lighter navy on hover */
-  }
-  
-  /* Image/Media Section Styling */
-  .section-image {
-    max-width: 100%;
-    height: auto;
-    margin: 20px 0;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .section ul {
-    padding-left: 120px; /* Adds spacing from the left */
-    text-align: left; /* Aligns the list to the left */
-  }
-  
-  .section ul li {
-    margin-bottom: 10px;
-    font-size: 1rem;
-    color: #333;
-  }
+/* Homepage-specific overrides */
   
   /* Hero Section */
   .home-hero {
     position: relative;
     text-align: center;
     padding: 60px 40px;
-    border-radius: 15px;
+    border-radius: 0;
     margin-bottom: 40px;
     overflow: hidden;
   }
@@ -138,12 +57,12 @@
   padding: 15px 30px;
   font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 0;
   text-decoration: none;
   white-space: normal;
   text-align: center;
   min-width: 160px;
-  transition: all 0.3s ease;
+  transition: background-color 260ms cubic-bezier(0.2, 0, 0, 1), transform 180ms cubic-bezier(0.2, 0, 0, 1), box-shadow 260ms cubic-bezier(0.2, 0, 0, 1), border-color 260ms cubic-bezier(0.2, 0, 0, 1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -191,9 +110,9 @@
   font-weight: 500;
   padding: 12px 24px;
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  border-radius: 0;
   border: 2px solid rgba(255, 255, 255, 0.5);
-  transition: all 0.3s ease;
+  transition: background-color 260ms cubic-bezier(0.2, 0, 0, 1), transform 180ms cubic-bezier(0.2, 0, 0, 1), box-shadow 260ms cubic-bezier(0.2, 0, 0, 1), border-color 260ms cubic-bezier(0.2, 0, 0, 1);
   backdrop-filter: blur(10px);
   white-space: nowrap;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -216,8 +135,8 @@
   /* Services Section */
   .home-services {
     padding: 40px;
-    background: white;
-    border-radius: 15px;
+    background: var(--surface-primary);
+    border-radius: 0;
     margin-bottom: 40px;
   }
 
@@ -233,7 +152,7 @@
     max-width: 800px;
     margin: 0 auto 40px;
     font-size: 1.1rem;
-    color: #666;
+    color: var(--text-secondary);
     line-height: 1.6;
   }
 
@@ -249,12 +168,12 @@
   }
 
   .service-card {
-    background: white;
+    background: var(--surface-primary);
     padding: 20px 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    box-shadow: var(--shadow-card);
+    transition: transform 180ms cubic-bezier(0.2, 0, 0, 1), box-shadow 260ms cubic-bezier(0.2, 0, 0, 1), border-color 260ms cubic-bezier(0.2, 0, 0, 1);
+    border: 1px solid var(--border-subtle);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -265,8 +184,8 @@
   }
 
   .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
   }
 
   .service-icon {
@@ -294,7 +213,7 @@
   }
 
   .service-card p {
-    color: #666;
+    color: var(--text-secondary);
     line-height: 1.4;
     margin: 0;
     font-size: 0.85rem;
@@ -314,9 +233,9 @@
     gap: 40px;
     align-items: center;
     background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
-    border-radius: 15px;
+    border-radius: 0;
     padding: 40px;
-    box-shadow: 0 8px 30px rgba(0, 42, 110, 0.2);
+    box-shadow: 0 6px 16px rgba(0, 42, 110, 0.14);
   }
 
   .discount-image img {
@@ -324,7 +243,7 @@
     height: 280px;
     object-fit: contain;
     display: block;
-    border-radius: 12px;
+    border-radius: 0;
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
   }
@@ -355,10 +274,10 @@
     background: white;
     color: #002a6e;
     padding: 12px 24px;
-    border-radius: 8px;
+    border-radius: 0;
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: background-color 260ms cubic-bezier(0.2, 0, 0, 1), transform 180ms cubic-bezier(0.2, 0, 0, 1), box-shadow 260ms cubic-bezier(0.2, 0, 0, 1), border-color 260ms cubic-bezier(0.2, 0, 0, 1);
     border: none;
     font-size: 1rem;
   }
@@ -373,7 +292,7 @@
   .services-cta {
     background: linear-gradient(135deg, #002a6e 0%, #004db3 100%);
     padding: 40px;
-    border-radius: 15px;
+    border-radius: 0;
     margin-top: 40px;
     margin-bottom: 20px; /* Reduced bottom margin */
     display: grid;
@@ -407,26 +326,26 @@
     padding: 15px 30px;
     font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 0;
     text-decoration: none;
     white-space: normal;
     text-align: center;
     min-width: 160px;
-    transition: all 0.3s ease;
+    transition: background-color 260ms cubic-bezier(0.2, 0, 0, 1), transform 180ms cubic-bezier(0.2, 0, 0, 1), box-shadow 260ms cubic-bezier(0.2, 0, 0, 1), border-color 260ms cubic-bezier(0.2, 0, 0, 1);
   }
 
   .services-cta .cta-button:hover {
     background: rgba(255, 255, 255, 0.9);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
   }
 
   /* Pledge Section */
   .pledge-section {
-    background: #f8f9fa;
+    background: var(--surface-page);
     padding: 60px 40px 40px 40px; /* Reduced bottom padding */
     text-align: center;
-    border-radius: 15px;
+    border-radius: 0;
     margin-bottom: 0; /* Remove bottom margin to bring closer to footer */
   }
 
@@ -441,7 +360,7 @@
     margin: 0 auto;
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #666;
+    color: var(--text-secondary);
   }
 
   /* Tablet Responsive */
@@ -516,8 +435,6 @@
     .home-services h2 {
       font-size: 1.8rem;
     }
-
-
 
     /* Mobile services grid - stack vertically */
     .services-grid {

@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 import cookieParser from 'cookie-parser';
 import { CognitoIdentityProviderClient, AdminInitiateAuthCommand, AdminRespondToAuthChallengeCommand, AdminListGroupsForUserCommand } from '@aws-sdk/client-cognito-identity-provider';
@@ -23,17 +24,71 @@ import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Load env for local/dev: prefer .env.local if present, else .env
+// Load env: prefer .env.local for dev, .env.production for production, else .env
 try {
   const envLocalPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '.env.local');
+  const envProductionPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '.env.production');
+  const envPath = path.join(path.dirname(fileURLToPath(import.meta.url)), '.env');
+  
   if (fs.existsSync(envLocalPath)) {
     dotenv.config({ path: envLocalPath });
+    console.log('✅ Loaded .env.local');
+  } else if (process.env.NODE_ENV === 'production' && fs.existsSync(envProductionPath)) {
+    dotenv.config({ path: envProductionPath });
+    console.log('✅ Loaded .env.production');
+  } else if (fs.existsSync(envPath)) {
+    dotenv.config({ path: envPath });
+    console.log('✅ Loaded .env');
   } else {
     dotenv.config();
+    console.log('⚠️ Using default environment');
   }
-} catch {}
+} catch (error) {
+  console.error('❌ Error loading environment:', error.message);
+}
+
+const isProduction = process.env.NODE_ENV === 'production';
+const isDevelopment = !isProduction;
+
+function validateRuntimeConfig() {
+  if (!isProduction) return;
+
+  if (process.env.BYPASS_AUTH === 'true') {
+    throw new Error('BYPASS_AUTH cannot be true in production');
+  }
+
+  const requiredVars = [
+    'COGNITO_ISSUER',
+    'COGNITO_AUDIENCE',
+    'COGNITO_USER_POOL_ID',
+    'AWS_REGION',
+    'S3_BLOG_BUCKET',
+    'DYNAMODB_TABLE_NAME'
+  ];
+
+  const missing = requiredVars.filter((name) => !process.env[name]);
+  if (missing.length > 0) {
+    throw new Error(`Missing required production environment variables: ${missing.join(', ')}`);
+  }
+}
+
+validateRuntimeConfig();
+
+function sendError(res, status, error, detail) {
+  const payload = { error };
+  if (!isProduction && detail) {
+    payload.detail = typeof detail === 'string' ? detail : String(detail);
+  }
+  return res.status(status).json(payload);
+}
 
 const app = express();
+const trustProxy = process.env.TRUST_PROXY === 'true' || isProduction;
+
+app.disable('x-powered-by');
+app.set('trust proxy', trustProxy ? 1 : false);
+app.set('query parser', 'simple');
+app.use(helmet({ contentSecurityPolicy: false }));
 
 // Prerender middleware for bot-friendly, dynamic SEO rendering
 // Uses a local prerender service in development unless overridden
@@ -54,8 +109,8 @@ app.use(
     ])
 );
 
-const port = process.env.PORT || 8080;
-const allowOriginEnv = process.env.ALLOW_ORIGIN || 'http://localhost:5173,http://localhost:3000';
+const port = process.env.PORT || 8001;
+const allowOriginEnv = process.env.ALLOW_ORIGIN || 'http://localhost:5173,http://localhost:3000,https://hh6influential.com,https://www.hh6influential.com';
 const allowedOrigins = allowOriginEnv.split(',').map(o => o.trim()).filter(Boolean);
 
 app.use(cors({
@@ -82,6 +137,181 @@ const dynamoDb = new DynamoDBClient({ region: awsRegion });
 
 // Contact inquiries table
 const contactTableName = process.env.DYNAMODB_TABLE_NAME || 'hh6-inquiries';
+
+// ---------- Anti-Spam: Rate Limiting & Validation ----------
+const submissionTracker = new Map();
+
+function normalizeIp(value) {
+  if (!value || typeof value !== 'string') return null;
+  return value.replace(/^::ffff:/, '').trim();
+}
+
+function getClientIp(req) {
+  const cfIpRaw = req.headers['cf-connecting-ip'];
+  const cfIp = Array.isArray(cfIpRaw) ? cfIpRaw[0] : cfIpRaw;
+  const normalizedCfIp = normalizeIp(cfIp);
+  if (normalizedCfIp) return normalizedCfIp;
+
+  const xForwardedForRaw = req.headers['x-forwarded-for'];
+  const xForwardedFor = Array.isArray(xForwardedForRaw) ? xForwardedForRaw[0] : xForwardedForRaw;
+  if (xForwardedFor) {
+    const first = xForwardedFor.split(',')[0];
+    const normalizedForwardedIp = normalizeIp(first);
+    if (normalizedForwardedIp) return normalizedForwardedIp;
+  }
+
+  return normalizeIp(req.ip || req.socket?.remoteAddress || req.connection?.remoteAddress) || 'unknown';
+}
+
+function logSecurityEvent(event, fields = {}) {
+  console.warn(`[SECURITY] ${event} ${JSON.stringify(fields)}`);
+}
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const windowMs = 15 * 60 * 1000; // 15 minutes
+  const maxAttempts = 5;
+  
+  const attempts = submissionTracker.get(ip) || [];
+  const recentAttempts = attempts.filter(time => now - time < windowMs);
+  
+  if (recentAttempts.length >= maxAttempts) {
+    return true;
+  }
+  
+  recentAttempts.push(now);
+  submissionTracker.set(ip, recentAttempts);
+  
+  // Cleanup old entries periodically
+  if (Math.random() < 0.01) {
+    for (const [key, value] of submissionTracker.entries()) {
+      const validAttempts = value.filter(time => now - time < windowMs);
+      if (validAttempts.length === 0) {
+        submissionTracker.delete(key);
+      } else {
+        submissionTracker.set(key, validAttempts);
+      }
+    }
+  }
+  
+  return false;
+}
+
+function requireDebugAccess(req, res, next) {
+  if (!isDevelopment) {
+    return res.status(404).json({ error: 'Not found' });
+  }
+
+  const ip = getClientIp(req);
+  const localIps = new Set(['127.0.0.1', '::1', 'localhost']);
+  if (!localIps.has(ip)) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+
+  return next();
+}
+
+function validateName(name) {
+  if (!name || name.length < 2) {
+    return { valid: false, error: 'Name must be at least 2 characters long' };
+  }
+  
+  if (name.length > 50) {
+    return { valid: false, error: 'Name must be less than 50 characters' };
+  }
+  
+  // Silent spam checks - return generic error to not reveal anti-spam techniques
+  if (!/[aeiouAEIOU]/.test(name)) {
+    return { valid: false, error: 'Please enter a valid name' };
+  }
+  
+  const upperCount = (name.match(/[A-Z]/g) || []).length;
+  if (upperCount / name.length > 0.6) {
+    return { valid: false, error: 'Please enter a valid name' };
+  }
+  
+  const words = name.split(/\s+/);
+  if (words.some(w => w.length > 15)) {
+    return { valid: false, error: 'Please enter a valid name' };
+  }
+  
+  return { valid: true };
+}
+
+function validateEmail(email) {
+  if (!email) {
+    return { valid: false, error: 'Email address is required' };
+  }
+  
+  if (email.length > 100) {
+    return { valid: false, error: 'Email address is too long' };
+  }
+  
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return { valid: false, error: 'Please enter a valid email address (e.g., name@example.com)' };
+  }
+  
+  if (/\.\./.test(email)) {
+    return { valid: false, error: 'Email address cannot contain consecutive dots' };
+  }
+  
+  // Block disposable email domains
+  const disposableDomains = [
+    'tempmail.com', 'guerrillamail.com', '10minutemail.com',
+    'throwaway.email', 'mailinator.com', 'maildrop.cc',
+    'temp-mail.org', 'fakeinbox.com', 'trashmail.com',
+    'getnada.com', 'yopmail.com', 'emailondeck.com'
+  ];
+  
+  const domain = email.split('@')[1]?.toLowerCase();
+  if (disposableDomains.includes(domain)) {
+    return { valid: false, error: 'Please use a permanent email address' };
+  }
+  
+  return { valid: true };
+}
+
+function validateMessage(message) {
+  if (!message) {
+    return { valid: false, error: 'Message is required' };
+  }
+  
+  if (message.length < 5) {
+    return { valid: false, error: 'Message must be at least 5 characters long' };
+  }
+  
+  if (message.length > 5000) {
+    return { valid: false, error: 'Message must be less than 5000 characters' };
+  }
+  
+  // Silent spam checks - return generic error
+  if (message.length > 15 && !message.includes(' ')) {
+    return { valid: false, error: 'Please enter a valid message' };
+  }
+  
+  const words = message.split(/\s+/);
+  if (words.some(w => w.length > 25)) {
+    return { valid: false, error: 'Please enter a valid message' };
+  }
+  
+  return { valid: true };
+}
+
+function sanitizeInput(str) {
+  if (!str) return '';
+  
+  // Remove zero-width characters
+  let cleaned = str.replace(/[\u200B-\u200D\uFEFF]/g, '');
+  
+  // Strip HTML tags
+  cleaned = cleaned.replace(/<[^>]*>/g, '');
+  
+  // Normalize whitespace
+  cleaned = cleaned.replace(/\s+/g, ' ').trim();
+  
+  return cleaned;
+}
 
 // Serve CDN: proxy to BLOG_CDN_URL if set; else try S3 direct, then fallback to local mock files
 const mockCdnRoot = path.join(__dirname, 'mock_cdn');
@@ -118,7 +348,7 @@ app.get(/^\/cdn\/(.*)/, async (req, res) => {
       const buffer = Buffer.from(await upstream.arrayBuffer());
       return res.status(200).send(buffer);
     } catch (e) {
-      return res.status(502).json({ error: 'Upstream error', detail: String(e) });
+      return sendError(res, 502, 'Upstream error', e);
     }
   }
   // Attempt direct S3 read
@@ -146,7 +376,7 @@ app.get('/api/health', (_req, res) => {
 });
 
 // Quick env debug (no secrets) to verify .env.local is loaded
-app.get('/api/debug/env', (_req, res) => {
+app.get('/api/debug/env', requireDebugAccess, (_req, res) => {
   res.json({
     bucket: s3Bucket || null,
     region: awsRegion || null,
@@ -155,7 +385,7 @@ app.get('/api/debug/env', (_req, res) => {
 });
 
 // Inspect current auth token (from Authorization or cookie) without enforcing admin group
-app.get('/api/debug/me', async (req, res) => {
+app.get('/api/debug/me', requireDebugAccess, async (req, res) => {
   try {
     const header = req.headers.authorization;
     const cookieToken = req.cookies?.hh6_id_token ? `Bearer ${req.cookies.hh6_id_token}` : null;
@@ -165,7 +395,7 @@ app.get('/api/debug/me', async (req, res) => {
     const { payload } = await jwtVerify(token, jwks, { issuer: cognitoIssuer, audience: cognitoAudience });
     res.json({ ok: true, sub: payload.sub, email: payload.email, groups: payload['cognito:groups'] || [] });
   } catch (e) {
-    res.status(401).json({ error: 'invalid_token', detail: String(e) });
+    return sendError(res, 401, 'invalid_token', e);
   }
 });
 
@@ -190,7 +420,19 @@ async function verifyAccessToken(authHeader) {
 }
 
 function requireAdmin(req, res, next) {
-  if (process.env.BYPASS_AUTH === 'true' || !cognitoIssuer || !cognitoAudience) {
+  if (process.env.BYPASS_AUTH === 'true') {
+    if (isProduction) {
+      logSecurityEvent('admin_bypass_blocked', { ip: getClientIp(req) });
+      return res.status(503).json({ error: 'Auth configuration error' });
+    }
+    return next();
+  }
+
+  if (!cognitoIssuer || !cognitoAudience) {
+    if (isProduction) {
+      logSecurityEvent('admin_auth_config_missing', { ip: getClientIp(req) });
+      return res.status(503).json({ error: 'Auth configuration error' });
+    }
     return next();
   }
   const header = req.headers.authorization;
@@ -208,12 +450,16 @@ function requireAdmin(req, res, next) {
         const out = await cognito.send(new AdminListGroupsForUserCommand({ UserPoolId: userPoolId, Username: username }));
         const names = (out.Groups || []).map(g => g.GroupName);
         if (names.includes(adminGroup)) return next();
-        return res.status(401).json({ error: 'Unauthorized', detail: 'missing_admin_group' });
+        return res.status(401).json({ error: 'Unauthorized' });
       } catch (e) {
-        return res.status(401).json({ error: 'Unauthorized', detail: `group_check_failed: ${String(e)}` });
+        logSecurityEvent('admin_group_check_failed', { ip: getClientIp(req), error: String(e) });
+        return res.status(401).json({ error: 'Unauthorized' });
       }
     })
-    .catch((e) => res.status(401).json({ error: 'Unauthorized', detail: e.message }));
+    .catch((e) => {
+      logSecurityEvent('admin_token_verification_failed', { ip: getClientIp(req), error: String(e) });
+      return res.status(401).json({ error: 'Unauthorized' });
+    });
 }
 
 // ---------- S3 helpers ----------
@@ -331,7 +577,7 @@ app.post('/api/admin/media/presign', requireAdmin, async (req, res) => {
     const url = await getSignedUrl(s3, putCmd, { expiresIn: 900 });
     res.json({ url, key });
   } catch (e) {
-    res.status(500).json({ error: 'presign_failed', detail: String(e) });
+    return sendError(res, 500, 'presign_failed', e);
   }
 });
 
@@ -355,7 +601,7 @@ app.post('/api/admin/media/upload', requireAdmin, async (req, res) => {
     const imageUrl = `/${key}`;
     res.json({ ok: true, key, url: imageUrl });
   } catch (e) {
-    res.status(500).json({ error: 'upload_failed', detail: String(e) });
+    return sendError(res, 500, 'upload_failed', e);
   }
 });
 
@@ -396,7 +642,7 @@ app.post('/api/admin/posts', requireAdmin, async (req, res) => {
 
     res.json({ ok: true, keys, summary });
   } catch (e) {
-    res.status(500).json({ error: 'create_post_failed', detail: String(e) });
+    return sendError(res, 500, 'create_post_failed', e);
   }
 });
 
@@ -425,7 +671,7 @@ app.put('/api/admin/posts/:slug', requireAdmin, async (req, res) => {
     await invalidatePaths([`/${keys.base}post.json`, `/${keys.base}${format === 'html' ? 'post.html' : 'body.md'}`, '/index.json']);
     res.json({ ok: true, keys });
   } catch (e) {
-    res.status(500).json({ error: 'update_post_failed', detail: String(e) });
+    return sendError(res, 500, 'update_post_failed', e);
   }
 });
 
@@ -458,7 +704,7 @@ app.delete('/api/admin/posts/:slug', requireAdmin, async (req, res) => {
     res.json({ ok: true });
   } catch (e) {
     console.error('Delete post error:', e);
-    res.status(500).json({ error: 'delete_post_failed', detail: String(e) });
+    return sendError(res, 500, 'delete_post_failed', e);
   }
 });
 
@@ -470,7 +716,7 @@ app.post('/api/admin/reindex', requireAdmin, async (_req, res) => {
     await invalidatePaths(['/index.json']);
     res.json({ ok: true, count: index.length });
   } catch (e) {
-    res.status(500).json({ error: 'reindex_failed', detail: String(e) });
+    return sendError(res, 500, 'reindex_failed', e);
   }
 });
 
@@ -480,7 +726,7 @@ app.get('/api/admin/posts', requireAdmin, async (_req, res) => {
     const index = (await readJsonFromS3('index.json')) || [];
     res.json(index);
   } catch (e) {
-    res.status(500).json({ error: 'list_failed', detail: String(e) });
+    return sendError(res, 500, 'list_failed', e);
   }
 });
 
@@ -507,21 +753,21 @@ app.get('/api/admin/posts/:slug', requireAdmin, async (req, res) => {
     }
     res.json({ meta, body: bodyText, path: base });
   } catch (e) {
-    res.status(500).json({ error: 'fetch_failed', detail: String(e) });
+    return sendError(res, 500, 'fetch_failed', e);
   }
 });
 
 // Dev debug: list bucket prefix
-app.get('/api/debug/s3', async (req, res) => {
+app.get('/api/debug/s3', requireDebugAccess, async (req, res) => {
   try {
     if (!s3Bucket) {
-      return res.status(400).json({ error: 'config_missing', detail: 'S3_BLOG_BUCKET not configured' });
+      return sendError(res, 400, 'config_missing', 'S3_BLOG_BUCKET not configured');
     }
     const prefix = (req.query.prefix || '').toString();
     const out = await s3.send(new ListObjectsV2Command({ Bucket: s3Bucket, Prefix: prefix, MaxKeys: 50 }));
     res.json({ ok: true, keys: out.Contents?.map(o => o.Key) || [] });
   } catch (e) {
-    res.status(500).json({ error: 's3_list_failed', detail: String(e) });
+    return sendError(res, 500, 's3_list_failed', e);
   }
 });
 
@@ -551,7 +797,7 @@ app.post('/api/auth/login', async (req, res) => {
     res.cookie('hh6_id_token', idToken, { httpOnly: true, sameSite: 'lax', secure, maxAge: 1000 * 60 * 60 });
     res.json({ ok: true });
   } catch (e) {
-    res.status(401).json({ error: 'login_failed', detail: String(e) });
+    return sendError(res, 401, 'login_failed', e);
   }
 });
 
@@ -578,7 +824,7 @@ app.post('/api/auth/complete-new-password', async (req, res) => {
     res.cookie('hh6_id_token', idToken, { httpOnly: true, sameSite: 'lax', secure, maxAge: 1000 * 60 * 60 });
     res.json({ ok: true });
   } catch (e) {
-    res.status(401).json({ error: 'complete_failed', detail: String(e) });
+    return sendError(res, 401, 'complete_failed', e);
   }
 });
 
@@ -591,32 +837,107 @@ app.post('/api/auth/logout', (_req, res) => {
 // ---------- Contact Form Endpoints ----------
 app.post('/api/contact', async (req, res) => {
   try {
-    const { name, email, phone, message, source = 'contact-page' } = req.body;
+    const { 
+      fullName, 
+      contactEmail, 
+      phone, 
+      inquiryText, 
+      company, // honeypot
+      _formStartTime,
+      source = 'contact-page' 
+    } = req.body;
+
+    const ip = getClientIp(req);
     
-    // Validation
-    if (!name || !email || !message) {
+    // Check rate limit
+    if (isRateLimited(ip)) {
+      // Silent success to not reveal rate limiting
+      logSecurityEvent('spam_blocked_rate_limit', { ip, source, name: fullName || null });
+      return res.json({ 
+        success: true, 
+        message: 'Thank you for your message! We\'ll get back to you soon.' 
+      });
+    }
+    
+    // Honeypot check - if filled, silently accept
+    if (company && company.trim() !== '') {
+      logSecurityEvent('spam_blocked_honeypot', { ip, source });
+      return res.json({ 
+        success: true, 
+        message: 'Thank you for your message! We\'ll get back to you soon.' 
+      });
+    }
+    
+    // Timing check - reject if < 3 seconds (bot) or > 24 hours (stale)
+    if (_formStartTime) {
+      const submitTime = Date.now() - _formStartTime;
+      if (submitTime < 3000) {
+        logSecurityEvent('spam_blocked_too_fast', { ip, source, submitTimeMs: submitTime, name: fullName || null });
+        return res.json({ 
+          success: true, 
+          message: 'Thank you for your message! We\'ll get back to you soon.' 
+        });
+      }
+      if (submitTime > 86400000) {
+        logSecurityEvent('spam_blocked_stale_form', { ip, source, submitTimeMs: submitTime });
+        return res.json({ 
+          success: true, 
+          message: 'Thank you for your message! We\'ll get back to you soon.' 
+        });
+      }
+    }
+    
+    // Required fields
+    if (!fullName || !contactEmail || !inquiryText) {
       return res.status(400).json({ error: 'Name, email, and message are required' });
     }
     
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ error: 'Invalid email format' });
+    // Sanitize inputs
+    const cleanName = sanitizeInput(fullName);
+    const cleanEmail = sanitizeInput(contactEmail);
+    const cleanMessage = sanitizeInput(inquiryText);
+    const cleanPhone = phone ? sanitizeInput(phone) : '';
+    
+    // Enhanced validation with specific error messages
+    const nameValidation = validateName(cleanName);
+    if (!nameValidation.valid) {
+      return res.status(400).json({ error: nameValidation.error });
     }
     
-    // Create inquiry record
+    const emailValidation = validateEmail(cleanEmail);
+    if (!emailValidation.valid) {
+      return res.status(400).json({ error: emailValidation.error });
+    }
+    
+    const messageValidation = validateMessage(cleanMessage);
+    if (!messageValidation.valid) {
+      return res.status(400).json({ error: messageValidation.error });
+    }
+    
+    // Check headers (basic bot detection)
+    const userAgent = req.headers['user-agent'];
+    if (!userAgent || userAgent.length < 10) {
+      logSecurityEvent('spam_blocked_invalid_user_agent', { ip, source, userAgent: userAgent || null });
+      return res.json({ 
+        success: true, 
+        message: 'Thank you for your message! We\'ll get back to you soon.' 
+      });
+    }
+    
+    // All checks passed - save to DynamoDB
+    console.log(`[LEGITIMATE SUBMISSION] Name: ${cleanName}, Email: ${cleanEmail}, IP: ${ip}`);
     const timestamp = Date.now();
     const inquiry = {
       id: `inquiry_${timestamp}_${Math.random().toString(36).substr(2, 9)}`,
       createdAt: new Date(timestamp).toISOString(),
-      name: name.trim(),
-      email: email.trim().toLowerCase(),
-      phone: phone ? phone.trim() : '',
-      message: message.trim(),
+      name: cleanName,
+      email: cleanEmail.toLowerCase(),
+      phone: cleanPhone,
+      message: cleanMessage,
       source: source,
       status: 'new',
-      ipAddress: req.ip || req.connection.remoteAddress || '',
-      userAgent: req.headers['user-agent'] || ''
+      ipAddress: ip,
+      userAgent: userAgent || ''
     };
     
     // Save to DynamoDB

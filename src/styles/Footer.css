@@ -60,7 +60,7 @@
   gap: 8px;
   background: rgba(255, 255, 255, 0.1);
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 0;
   font-size: 0.9rem;
   font-weight: 600;
   backdrop-filter: blur(10px);
@@ -85,7 +85,7 @@
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   font-size: 0.95rem;
-  transition: all 0.3s ease;
+  transition: color 260ms cubic-bezier(0.2, 0, 0, 1), border-color 260ms cubic-bezier(0.2, 0, 0, 1), transform 180ms cubic-bezier(0.2, 0, 0, 1), background-color 260ms cubic-bezier(0.2, 0, 0, 1);
   padding: 4px 0;
   border-left: 3px solid transparent;
   padding-left: 12px;
@@ -112,9 +112,9 @@
   color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
   font-size: 0.9rem;
-  transition: all 0.3s ease;
+  transition: color 260ms cubic-bezier(0.2, 0, 0, 1), border-color 260ms cubic-bezier(0.2, 0, 0, 1), transform 180ms cubic-bezier(0.2, 0, 0, 1), background-color 260ms cubic-bezier(0.2, 0, 0, 1);
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: 0;
   border: 1px solid transparent;
 }
 
@@ -143,10 +143,10 @@
   justify-content: center;
   width: 45px;
   height: 45px;
-  border-radius: 10px;
+  border-radius: 0;
   color: white;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: color 260ms cubic-bezier(0.2, 0, 0, 1), transform 180ms cubic-bezier(0.2, 0, 0, 1), box-shadow 260ms cubic-bezier(0.2, 0, 0, 1);
   position: relative;
   overflow: hidden;
 }
@@ -159,7 +159,7 @@
   right: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+  transition: background-color 260ms cubic-bezier(0.2, 0, 0, 1), transform 180ms cubic-bezier(0.2, 0, 0, 1);
   z-index: 1;
 }
 
@@ -176,24 +176,24 @@
 }
 
 .social-icon.linkedin:hover::before {
-  background: #0077b5;
+  background: var(--social-linkedin);
 }
 
 .social-icon.facebook:hover::before {
-  background: #1877f2;
+  background: var(--social-facebook);
 }
 
 .social-icon.youtube:hover::before {
-  background: #ff0000;
+  background: var(--social-youtube);
 }
 
 .social-icon.x:hover::before {
-  background: #111111;
+  background: var(--social-x);
 }
 
 .social-icon:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(var(--lift-md));
+  box-shadow: var(--shadow-card-hover);
 }
 
 /* Footer Bottom */
@@ -273,7 +273,7 @@
     padding: 8px 16px;
     border-left: none;
     border-bottom: 2px solid transparent;
-    border-radius: 6px;
+    border-radius: 0;
   }
 
   .footer-link:hover {

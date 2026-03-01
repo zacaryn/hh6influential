@@ -8,9 +8,6 @@ import "../../../styles/Admin.css";
 
 function AdminDashboard() {
   const [activePanel, setActivePanel] = React.useState('posts');
-  const [crawlUrl, setCrawlUrl] = React.useState('');
-  const [crawlResults, setCrawlResults] = React.useState(null);
-  const [crawlLoading, setCrawlLoading] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
   const [inquiries, setInquiries] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -43,21 +40,6 @@ function AdminDashboard() {
 
   const API_BASE = process.env.NEXT_PUBLIC_BACKEND_API_URL?.replace(/\/$/, "") || 'http://localhost:8080';
   const CDN_BASE = process.env.NEXT_PUBLIC_BLOG_CDN_URL?.replace(/\/$/, "") || '';
-
-  // Crawl test function
-  const testCrawl = async (url) => {
-    if (!url) return;
-    
-    setCrawlLoading(true);
-    try {
-      const response = await fetch(`/api/crawl-test?url=${encodeURIComponent(url)}`);
-      const data = await response.json();
-      setCrawlResults(data);
-    } catch (error) {
-      setCrawlResults({ error: 'Failed to test URL' });
-    }
-    setCrawlLoading(false);
-  };
 
   // Load posts on mount
   React.useEffect(() => {
@@ -394,12 +376,6 @@ function AdminDashboard() {
                 >
                   Contact Inquiries
                 </button>
-                <button 
-                  className={activePanel === 'crawl' ? 'active' : ''} 
-                  onClick={() => setActivePanel('crawl')}
-                >
-                  Crawl Test
-                </button>
               </nav>
             </aside>
 
@@ -442,12 +418,10 @@ function AdminDashboard() {
                   if (post.coverImage) {
                     if (post.coverImage.startsWith("http")) {
                       imageUrl = post.coverImage;
-                    } else if (post.coverImage.startsWith("/media/")) {
-                      // Media paths go through API proxy (same as blog)
-                      imageUrl = `${API_BASE}/cdn${post.coverImage}`;
                     } else {
-                      // CDN paths
-                      imageUrl = `${CDN_BASE}${post.coverImage}`;
+                      // All paths go directly to CDN with cache-busting for media files
+                      const baseUrl = `${CDN_BASE}${post.coverImage}`;
+                      imageUrl = post.coverImage.includes('/media/') ? `${baseUrl}?v=${Date.now()}` : baseUrl;
                     }
                   }
                   
@@ -756,137 +730,6 @@ function AdminDashboard() {
           </>
         )}
 
-        {activePanel === 'crawl' && (
-          <div className="crawl-test-panel">
-            <div className="panel-header">
-              <h2>SEO Crawl Test</h2>
-              <p>Test how search engines see your pages</p>
-            </div>
-
-            <div className="crawl-input-section">
-              <div className="quick-links">
-                <h3>Quick Test Pages</h3>
-                <div className="quick-link-buttons">
-                  {[
-                    { name: 'Home', url: '/' },
-                    { name: 'Services', url: '/services' },
-                    { name: 'Web Design', url: '/services/web-design' },
-                    { name: 'Social Media', url: '/services/social-media' },
-                    { name: 'Video Editing', url: '/services/video-editing' },
-                    { name: 'Graphic Design', url: '/services/graphic-design' },
-                    { name: 'Web Hosting', url: '/services/web-hosting' },
-                    { name: 'Webmaster', url: '/services/webmaster' },
-                    { name: 'SEO Marketing', url: '/services/seo-marketing' },
-                    { name: 'About', url: '/about' },
-                    { name: 'Contact', url: '/contact' },
-                    { name: 'Blog', url: '/blog' }
-                  ].map((page) => (
-                    <button
-                      key={page.url}
-                      onClick={() => {
-                        setCrawlUrl(page.url);
-                        testCrawl(page.url);
-                      }}
-                      className="quick-link-btn"
-                    >
-                      {page.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="manual-test">
-                <h3>Manual URL Test</h3>
-                <div className="url-input-group">
-                  <input
-                    type="text"
-                    value={crawlUrl}
-                    onChange={(e) => setCrawlUrl(e.target.value)}
-                    placeholder="Enter URL to test (e.g., /services/web-design)"
-                    className="url-input"
-                  />
-                  <button
-                    onClick={() => testCrawl(crawlUrl)}
-                    disabled={crawlLoading || !crawlUrl}
-                    className="test-btn"
-                  >
-                    {crawlLoading ? 'Testing...' : 'Test URL'}
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {crawlResults && (
-              <div className="crawl-results">
-                <h3>Test Results</h3>
-                
-                {/* Google Search Result Preview */}
-                <div className="search-preview">
-                  <h4>Google Search Result Preview</h4>
-                  <div className="search-result-card">
-                    <div className="search-url">{crawlResults.url}</div>
-                    <div className="search-title">{crawlResults.seo?.title || 'No Title'}</div>
-                    <div className="search-description">{crawlResults.seo?.description || 'No description available'}</div>
-                    
-                    {crawlResults.faqData?.count > 0 && (
-                      <div className="rich-snippet-indicator">
-                        📋 FAQ Rich Snippets Available ({crawlResults.faqData.count} questions)
-                      </div>
-                    )}
-                    
-                    {crawlResults.structuredData?.count > 0 && (
-                      <div className="rich-snippet-indicator">
-                        🏷️ Structured Data: {crawlResults.structuredData.schemas.join(', ')}
-                      </div>
-                    )}
-
-                    {crawlResults.faqData?.questions?.length > 0 && (
-                      <div className="faq-preview">
-                        <div className="faq-header">People also ask:</div>
-                        {crawlResults.faqData.questions.slice(0, 3).map((question, index) => (
-                          <div key={index} className="faq-question">{question}</div>
-                        ))}
-                        {crawlResults.faqData.questions.length > 3 && (
-                          <div className="faq-more">+{crawlResults.faqData.questions.length - 3} more questions</div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Raw Data */}
-                <div className="raw-data">
-                  <h4>Raw Technical Data</h4>
-                  <div className="data-summary">
-                    <div className="data-item">
-                      <strong>Status:</strong> {crawlResults.status}
-                    </div>
-                    <div className="data-item">
-                      <strong>Content Length:</strong> {crawlResults.contentLength?.toLocaleString()} chars
-                    </div>
-                    <div className="data-item">
-                      <strong>H1 Tags:</strong> {crawlResults.headings?.h1?.length || 0}
-                    </div>
-                    <div className="data-item">
-                      <strong>H2 Tags:</strong> {crawlResults.headings?.h2?.length || 0}
-                    </div>
-                    <div className="data-item">
-                      <strong>Structured Data:</strong> {crawlResults.structuredData?.count || 0} schemas
-                    </div>
-                    <div className="data-item">
-                      <strong>FAQ Schemas:</strong> {crawlResults.faqData?.count || 0}
-                    </div>
-                  </div>
-                  
-                  <details className="raw-json">
-                    <summary>View Full JSON Data</summary>
-                    <pre>{JSON.stringify(crawlResults, null, 2)}</pre>
-                  </details>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
             </div>
           </div>
         </main>
